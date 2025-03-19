@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .skill-progress {
+    @apply transition-all duration-1000 ease-in-out;
+  }
+
+  .nav-link {
+    @apply relative font-medium hover:text-primary;
+  }
+  
+  .dark .nav-link:hover {
+    @apply text-blue-400;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-primary transition-all duration-300 ease-in-out;
+  }
+
+  .dark .nav-link::after {
+    @apply bg-blue-400;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .project-card {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .project-card:hover {
+    @apply transform -translate-y-1 shadow-xl;
+  }
+}
