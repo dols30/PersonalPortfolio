@@ -13,9 +13,9 @@ const Home = () => {
   const [activeSection, setActiveSection] = useState("profile");
   
   const socialLinks: SocialLink[] = [
-    { platform: "LinkedIn", url: "https://www.linkedin.com/in/drb30", icon: "fab fa-linkedin" },
-    { platform: "GitHub", url: "https://github.com/dols30", icon: "fab fa-github" },
-    { platform: "Email", url: "mailto:bashyal.dolraj30@gmail.com", icon: "fas fa-envelope" }
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/drb30", iconName: "linkedin" },
+    { platform: "GitHub", url: "https://github.com/dols30", iconName: "github" },
+    { platform: "Email", url: "mailto:bashyal.dolraj30@gmail.com", iconName: "mail" }
   ];
   
   const stats: Stat[] = [
@@ -28,56 +28,56 @@ const Home = () => {
     { 
       name: "C++", 
       level: 90, 
-      icon: "fab fa-cuttlefish", 
+      iconName: "code", 
       category: "language", 
       proficiency: "Advanced" 
     },
     { 
       name: "C#", 
       level: 85, 
-      icon: "fab fa-cuttlefish", 
+      iconName: "hash", 
       category: "language", 
       proficiency: "Advanced" 
     },
     { 
       name: "HTML/CSS", 
       level: 80, 
-      icon: "fab fa-html5", 
+      iconName: "code", 
       category: "language", 
       proficiency: "Intermediate" 
     },
     { 
       name: "JavaScript", 
       level: 75, 
-      icon: "fab fa-js", 
+      iconName: "file-code", 
       category: "language", 
       proficiency: "Intermediate" 
     },
     { 
       name: ".NET MAUI", 
       level: 85, 
-      icon: "fab fa-microsoft", 
+      iconName: "layout", 
       category: "technology", 
       proficiency: "Advanced" 
     },
     { 
       name: "Unity Engine", 
       level: 70, 
-      icon: "fas fa-gamepad", 
+      iconName: "gamepad-2", 
       category: "technology", 
       proficiency: "Intermediate" 
     },
     { 
       name: "Git", 
       level: 80, 
-      icon: "fab fa-git-alt", 
+      iconName: "git-branch", 
       category: "technology", 
       proficiency: "Intermediate" 
     },
     { 
       name: "Data Structures", 
       level: 90, 
-      icon: "fas fa-database", 
+      iconName: "database", 
       category: "technology", 
       proficiency: "Advanced" 
     }

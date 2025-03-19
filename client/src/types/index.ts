@@ -1,7 +1,7 @@
 export interface Skill {
   name: string;
   level: number; // 0 to 100
-  icon: string;
+  iconName: string; // Name of the icon to use with lucide-react
   category: "language" | "technology";
   proficiency: "Beginner" | "Intermediate" | "Advanced";
 }
@@ -19,7 +19,7 @@ export interface Project {
 export interface SocialLink {
   platform: string;
   url: string;
-  icon: string;
+  iconName: string; // Name of the icon to use with lucide-react
 }
 
 export interface ContactInfo {
