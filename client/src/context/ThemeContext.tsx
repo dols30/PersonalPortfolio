@@ -15,31 +15,38 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  // Initialize state from localStorage or system preference
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check the localStorage first
-    const savedTheme = localStorage.getItem("theme");
-    
-    if (savedTheme === "dark") return true;
-    if (savedTheme === "light") return false;
-    
-    // If no localStorage value, check system preference
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
-  
-  // Update the document class and localStorage when dark mode changes
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+  // Check if the user's system prefers dark mode or if they've previously selected dark mode
+  const getInitialMode = () => {
+    // Check local storage
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode) {
+      return savedMode === 'dark';
     }
+    // If no saved preference, check system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+
+  const [isDarkMode, setIsDarkMode] = useState(getInitialMode);
+
+  // Apply dark mode class to HTML element when the component mounts
+  useEffect(() => {
+    // Add or remove the 'dark' class from the html element
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // Save the current preference to localStorage
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      console.log('Toggle dark mode:', { prevMode, newMode });
+      return newMode;
+    });
   };
 
   return (

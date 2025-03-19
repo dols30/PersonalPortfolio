@@ -1,12 +1,38 @@
-import { useState } from "react";
-import { useTheme } from "@/hooks/useTheme";
+import { useState, useEffect } from "react";
 
 interface NavbarProps {
   activeSection: string;
 }
 
 const Navbar = ({ activeSection }: NavbarProps) => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  // Directly manage dark mode in the Navbar component
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check if mode saved in localStorage
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode) {
+      return savedMode === 'dark';
+    }
+    // Otherwise use system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+  
+  // Apply dark mode class to document element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+  
+  // Function to toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevMode => !prevMode);
+    console.log('Toggling dark mode, new state:', !isDarkMode);
+  };
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
