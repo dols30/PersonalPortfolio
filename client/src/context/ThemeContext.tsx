@@ -15,34 +15,31 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Check for saved theme preference or use system preference
+  // Initialize state from localStorage or system preference
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check the localStorage first
     const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
+    if (savedTheme === "dark") return true;
+    if (savedTheme === "light") return false;
+    
+    // If no localStorage value, check system preference
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  
+  // Update the document class and localStorage when dark mode changes
+  useEffect(() => {
+    if (isDarkMode) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
-  }, []);
+  }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode((prev) => {
-      const newMode = !prev;
-      localStorage.setItem("theme", newMode ? "dark" : "light");
-      
-      if (newMode) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      
-      return newMode;
-    });
+    setIsDarkMode(prev => !prev);
   };
 
   return (
