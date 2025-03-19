@@ -8,7 +8,7 @@ function App() {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={isDarkMode ? "dark" : ""}>
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Switch>
         <Route path="/" component={Home} />
         <Route component={NotFound} />

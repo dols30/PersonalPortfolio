@@ -24,6 +24,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -31,6 +34,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setIsDarkMode((prev) => {
       const newMode = !prev;
       localStorage.setItem("theme", newMode ? "dark" : "light");
+      
+      if (newMode) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      
       return newMode;
     });
   };
