@@ -6,18 +6,23 @@ interface ProjectsSectionProps {
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   return (
-    <section id="projects" className="py-20 bg-slate-100 dark:bg-slate-800/50 transition-colors duration-300">
+    <section id="projects" className="py-20 bg-slate-100 dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <span className="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium mb-3">
             My Work
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">Featured Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold section-title">Featured Projects</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg">
+          {projects.map((project, index) => (
+            <div 
+              key={project.id} 
+              className={`project-card bg-white dark:bg-black/40 dark:backdrop-blur-sm rounded-xl overflow-hidden shadow-lg animate-on-scroll group ${
+                index === 0 ? 'animate-stagger-1' : index === 1 ? 'animate-stagger-2' : 'animate-stagger-3'
+              }`}
+            >
               <div className="relative h-48 overflow-hidden">
                 <img 
                   src={project.image} 
@@ -50,12 +55,15 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
               </div>
               
               <div className="p-5">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{project.title}</h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.technologies.map((tech, index) => (
-                    <span key={index} className="px-2 py-1 text-xs bg-slate-200 dark:bg-slate-700 rounded-full">
+                    <span 
+                      key={index} 
+                      className="px-2 py-1 text-xs bg-slate-200 dark:bg-slate-700 rounded-full transition-all duration-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
                       {tech}
                     </span>
                   ))}

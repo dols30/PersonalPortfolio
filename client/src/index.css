@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
   * {
@@ -13,6 +13,86 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    animation: fadeInPage 0.5s ease-in-out forwards;
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #000000, #121212, #1a1a1a, #0a0a0a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeInPage {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-on-scroll {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 1 !important;
+  }
+  
+  .animate-stagger-1 { animation-delay: 0.1s; }
+  .animate-stagger-2 { animation-delay: 0.2s; }
+  .animate-stagger-3 { animation-delay: 0.3s; }
+  .animate-stagger-4 { animation-delay: 0.4s; }
+  .animate-stagger-5 { animation-delay: 0.5s; }
+  
+  .slide-in-right {
+    animation: slideInFromRight 0.6s ease-out forwards;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
   }
 }
 
@@ -22,20 +102,20 @@
   }
 
   .nav-link {
-    @apply relative font-medium hover:text-primary;
+    @apply relative font-medium hover:text-blue-600;
   }
   
   .dark .nav-link:hover {
-    @apply text-blue-400;
+    @apply text-gray-300;
   }
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-primary transition-all duration-300 ease-in-out;
+    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out;
   }
 
   .dark .nav-link::after {
-    @apply bg-blue-400;
+    @apply bg-gray-400;
   }
 
   .nav-link:hover::after,
@@ -45,9 +125,20 @@
 
   .project-card {
     @apply transition-all duration-300 ease-in-out;
+    opacity: 0;
   }
 
   .project-card:hover {
     @apply transform -translate-y-1 shadow-xl;
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+  }
+  
+  .skill-item {
+    @apply transition-all duration-300 ease-in-out;
+    opacity: 0;
+  }
+  
+  .skill-item:hover {
+    @apply transform -translate-y-1;
   }
 }

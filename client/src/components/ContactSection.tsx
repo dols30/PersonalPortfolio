@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ContactInfo, SocialLink } from "@/types";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
+import { emailjsConfig } from "@/lib/emailjs";
 
 interface ContactSectionProps {
   contactInfo: ContactInfo;
@@ -16,6 +18,7 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,25 +28,62 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // In a real implementation, you would send the form data to a server
-    // For this implementation, we'll just simulate a successful submission
-    setTimeout(() => {
+    try {
+      // Send email using EmailJS
+      if (emailjsConfig.serviceId === "YOUR_EMAILJS_SERVICE_ID") {
+        // If EmailJS is not configured yet, use the simulated version
+        setTimeout(() => {
+          toast({
+            title: "Demo Mode",
+            description: "This form is in demo mode. To receive actual emails, configure EmailJS credentials.",
+          });
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: ""
+          });
+          setIsSubmitting(false);
+        }, 1500);
+      } else {
+        // Send actual email
+        const result = await emailjs.sendForm(
+          emailjsConfig.serviceId,
+          emailjsConfig.templateId,
+          formRef.current!,
+          emailjsConfig.publicKey
+        );
+        
+        if (result.text === 'OK') {
+          toast({
+            title: "Message Sent!",
+            description: "Thanks for your message! I'll get back to you soon.",
+          });
+          
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: ""
+          });
+        } else {
+          throw new Error('Failed to send message');
+        }
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
       toast({
-        title: "Message Sent!",
-        description: "Thanks for your message! I'll get back to you soon.",
+        title: "Error Sending Message",
+        description: "There was a problem sending your message. Please try again later.",
+        variant: "destructive"
       });
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -53,12 +93,12 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
           <span className="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium mb-3">
             Get In Touch
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">Contact Me</h2>
+          <h2 className="text-3xl md:text-4xl font-bold section-title">Contact Me</h2>
         </div>
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Info */}
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm p-8 rounded-xl shadow-lg section-content">
             <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
               Contact Information
             </h3>
@@ -139,12 +179,12 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm p-8 rounded-xl shadow-lg section-content">
             <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
               Send Me a Message
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1">
                   Your Name

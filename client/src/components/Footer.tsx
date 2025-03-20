@@ -8,7 +8,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-slate-900 text-white py-8">
+    <footer className="bg-slate-900 dark:bg-black/30 backdrop-blur-sm text-white py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-2xl font-bold mb-4 md:mb-0">
@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-6 text-center text-sm text-slate-500">
-          <p>Computer Science Student at The University of Southern Mississippi</p>
+          <p>"Code is poetry in motion"</p>
         </div>
       </div>
     </footer>
