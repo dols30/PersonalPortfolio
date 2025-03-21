@@ -1,3 +1,6 @@
+// RotatingSkills.tsx - Interactive 3D skill visualization component with tentacles and hover effects
+// Updated for smoother animations and fixed hover glitching issue
+
 import { useEffect, useState, useRef } from "react";
 import { Skill } from "@/types";
 
