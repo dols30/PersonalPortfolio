@@ -1,9 +1,46 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Skill } from "@/types";
+
+const RotatingSkills = lazy(() => import("./RotatingSkills"));
 
 interface SkillsSectionProps {
   skills: Skill[];
 }
+
+// New component to render star ratings
+const SkillLevelStars = ({ level, isVisible }: { level: number, isVisible: boolean }) => {
+  // Convert level (0-100) to stars (1-5)
+  const totalStars = 5;
+  const filledStars = Math.round((level / 100) * totalStars);
+  
+  return (
+    <div className="flex gap-1">
+      {[...Array(totalStars)].map((_, i) => (
+        <svg 
+          key={i} 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="16" 
+          height="16" 
+          viewBox="0 0 24 24" 
+          fill={i < filledStars ? "currentColor" : "none"}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`
+            ${i < filledStars 
+              ? "text-blue-500 dark:text-blue-400" 
+              : "text-slate-300 dark:text-slate-600"
+            }
+            ${isVisible ? "skill-star skill-star-animate skill-star-" + (i+1) : ""}
+          `}
+        >
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      ))}
+    </div>
+  );
+};
 
 const SkillIcon = ({ iconName }: { iconName: string }) => {
   return (
@@ -40,6 +77,7 @@ const SkillIcon = ({ iconName }: { iconName: string }) => {
 const SkillsSection = ({ skills }: SkillsSectionProps) => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [showRotating, setShowRotating] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,69 +113,158 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
             My Skills
           </span>
           <h2 className="text-3xl md:text-4xl font-bold section-title">What I Know</h2>
-        </div>
-
-        <div ref={skillsRef} className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Programming Languages Skills */}
-          <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl section-content slide-in-right animate-stagger-1">
-            <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
-              Programming Languages
-            </h3>
-
-            <div className="space-y-8">
-              {programmingLanguages.map((skill, index) => (
-                <div key={index} className={`skill-item animate-on-scroll animate-stagger-${index + 1}`}>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                      <SkillIcon iconName={skill.iconName} /> {skill.name}
-                    </h4>
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                      {skill.proficiency}
-                    </span>
-                  </div>
-                  <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 dark:from-blue-600 dark:to-gray-500 transition-all duration-1000 ease-out"
-                      style={{ 
-                        width: isVisible ? `${skill.level}%` : '0%' 
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Technologies & Frameworks Skills */}
-          <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl section-content slide-in-right animate-stagger-2">
-            <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
-              Technologies & Frameworks
-            </h3>
-
-            <div className="space-y-8">
-              {technologies.map((skill, index) => (
-                <div key={index} className={`skill-item animate-on-scroll animate-stagger-${index + 1}`}>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                      <SkillIcon iconName={skill.iconName} /> {skill.name}
-                    </h4>
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                      {skill.proficiency}
-                    </span>
-                  </div>
-                  <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600 dark:from-blue-600 dark:to-gray-500 transition-all duration-1000 ease-out"
-                      style={{ 
-                        width: isVisible ? `${skill.level}%` : '0%' 
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          
+          <div className="mt-4 flex justify-center gap-4">
+            <button
+              onClick={() => setShowRotating(true)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                showRotating 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}
+            >
+              Visual View
+            </button>
+            <button
+              onClick={() => setShowRotating(false)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                !showRotating 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}
+            >
+              Detailed View
+            </button>
           </div>
         </div>
+
+        {showRotating ? (
+          <div className="mb-12 fade-in animate-stagger-1">
+            <Suspense fallback={<div>Loading...</div>}>
+              <RotatingSkills skills={skills} key={`skills-${Date.now()}`} />
+            </Suspense>
+          </div>
+        ) : (
+          <div ref={skillsRef} className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Programming Languages Skills */}
+            <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl section-content slide-in-right animate-stagger-1">
+              <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
+                Programming Languages
+              </h3>
+
+              <div className="space-y-6">
+                {programmingLanguages.map((skill, index) => (
+                  <div 
+                    key={index}
+                    className={`
+                      skill-item animate-on-scroll animate-stagger-${index + 1} 
+                      p-3 rounded-lg border border-transparent
+                      hover:bg-blue-50/50 dark:hover:bg-blue-900/10 
+                      hover:border-blue-100 dark:hover:border-blue-800/40
+                      transition-all duration-300 ease-in-out
+                      transform hover:-translate-y-1 hover:shadow-md
+                    `}
+                  >
+                    <div className="flex justify-between mb-2">
+                      <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <SkillIcon iconName={skill.iconName} /> {skill.name}
+                      </h4>
+                      <span className="text-sm text-slate-500 dark:text-slate-400 min-w-[90px] text-right">
+                        {skill.proficiency}
+                      </span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <SkillLevelStars level={skill.level} isVisible={isVisible} />
+                        <span className={`text-xs text-slate-400 dark:text-slate-500 ml-2 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.6s' }}>
+                          {skill.level}%
+                        </span>
+                      </div>
+                      
+                      {/* Skill Experience Badges */}
+                      <div className="flex items-center gap-2">
+                        {skill.level >= 75 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 skill-badge">
+                            Expert
+                          </span>
+                        )}
+                        {skill.level >= 50 && skill.level < 75 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 skill-badge">
+                            Proficient
+                          </span>
+                        )}
+                        {skill.level < 50 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 skill-badge">
+                            Learning
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Technologies & Frameworks Skills */}
+            <div className="bg-white dark:bg-black/40 dark:backdrop-blur-sm rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl section-content slide-in-right animate-stagger-2">
+              <h3 className="text-xl font-bold mb-6 border-b pb-2 border-slate-200 dark:border-slate-700">
+                Technologies & Frameworks
+              </h3>
+
+              <div className="space-y-6">
+                {technologies.map((skill, index) => (
+                  <div 
+                    key={index}
+                    className={`
+                      skill-item animate-on-scroll animate-stagger-${index + 1} 
+                      p-3 rounded-lg border border-transparent
+                      hover:bg-blue-50/50 dark:hover:bg-blue-900/10 
+                      hover:border-blue-100 dark:hover:border-blue-800/40
+                      transition-all duration-300 ease-in-out
+                      transform hover:-translate-y-1 hover:shadow-md
+                    `}
+                  >
+                    <div className="flex justify-between mb-2">
+                      <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <SkillIcon iconName={skill.iconName} /> {skill.name}
+                      </h4>
+                      <span className="text-sm text-slate-500 dark:text-slate-400 min-w-[90px] text-right">
+                        {skill.proficiency}
+                      </span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <SkillLevelStars level={skill.level} isVisible={isVisible} />
+                        <span className={`text-xs text-slate-400 dark:text-slate-500 ml-2 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.6s' }}>
+                          {skill.level}%
+                        </span>
+                      </div>
+                      
+                      {/* Skill Experience Badges */}
+                      <div className="flex items-center gap-2">
+                        {skill.level >= 75 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 skill-badge">
+                            Expert
+                          </span>
+                        )}
+                        {skill.level >= 50 && skill.level < 75 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 skill-badge">
+                            Proficient
+                          </span>
+                        )}
+                        {skill.level < 50 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 skill-badge">
+                            Learning
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
