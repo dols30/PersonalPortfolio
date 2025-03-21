@@ -195,7 +195,7 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   name="name" 
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe" 
+                  placeholder="Dolraj Bashyal"
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                 />
@@ -252,14 +252,14 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
                     <svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
                     </svg>
-                    Sending...
+                    <span className="text-white">Sending...</span>
                   </>
                 ) : (
                   <>
@@ -267,7 +267,7 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                       <path d="m22 2-7 20-4-9-9-4Z"></path>
                       <path d="M22 2 11 13"></path>
                     </svg>
-                    Send Message
+                    <span className="text-white">Send Message</span>
                   </>
                 )}
               </button>
