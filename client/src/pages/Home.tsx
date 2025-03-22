@@ -25,7 +25,7 @@ const Home = () => {
   
   const stats: Stat[] = [
     { value: "4.0", label: "GPA" },
-    { value: "3+", label: "Projects" },
+    { value: "5+", label: "Projects" },
     { value: "2027", label: "Graduation" }
   ];
   

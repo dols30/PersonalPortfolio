@@ -43,7 +43,7 @@ const AboutSection = ({ stats }: AboutSectionProps) => {
             </h3>
             <div className="space-y-4 text-slate-600 dark:text-slate-300">
               <p>
-                I'm a Computer Science student at The University of Southern Mississippi maintaining a 4.0 GPA with a minor in Mathematics. My academic focus is on problem-solving, algorithms, and efficient software development.
+                I'm a Computer Science student at The University of Southern Mississippi with a minor in Mathematics. My academic focus is on problem-solving, algorithms, and efficient software development.
               </p>
               <p>
                 My technical interests include multi-platform application development, data structures, and game design. I enjoy creating software that works seamlessly across different devices while solving practical challenges.
