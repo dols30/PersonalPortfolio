@@ -116,7 +116,7 @@ const Home = () => {
       id: 2,
       title: "Theater Seating Management",
       description: "An application for managing theater seating arrangements, ticket booking, and occupancy tracking for movie theaters.",
-      image: "https://img.freepik.com/free-vector/cinema-realistic-poster-with-illuminated-seats-projector-audience-watching-movie_1284-28234.jpg?w=996&t=st=1711329694~exp=1711330294~hmac=c7be4f0d809e6dfa0a4a511f899389da5f4d62e95df3f51eccd0bc1a7a61a7e7",
+      image: "https://cdn.pixabay.com/photo/2019/04/15/11/42/cinema-4129401_1280.jpg",
       githubLink: "https://github.com/dols30",
       liveLink: "https://example.com/theater-seating",
       technologies: ["C#", ".NET MAUI", "UI Design", "Algorithms"]
@@ -125,7 +125,7 @@ const Home = () => {
       id: 3,
       title: "2D Platformer Game",
       description: "A 2D platformer game developed using Unity engine with custom character animations and level design.",
-      image: "https://img.freepik.com/free-vector/game-level-background-scene_107791-15402.jpg?w=1380&t=st=1711329819~exp=1711330419~hmac=2c5a69adb5df05ddfa5a0c85f40e32cd954f7a4b7c4dfbe4fcc27344ba00bfa8",
+      image: "https://cdn.dribbble.com/users/383277/screenshots/1236626/media/f9df8a8fa492b894f799e5f06ba4c26b.png",
       githubLink: "https://github.com/dols30",
       liveLink: "https://example.com/platformer-game",
       technologies: ["C#", "Unity", "Game Dev", "Level Design"]

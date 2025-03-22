@@ -475,8 +475,13 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
         const angle = (index * 137.5 + rotation) % 360; // Golden angle is ~137.5 degrees
         const phi = (angle * Math.PI) / 180;
         
-        // Calculate 3D coordinates
-        const sphereRadius = 220; // Larger radius to increase ring size
+        // Calculate 3D coordinates - use same sphere radius calculation as in drawTentacles
+        const baseRadius = Math.min(220, Math.min(
+          containerRef.current?.offsetWidth || 750, 
+          containerRef.current?.offsetHeight || 500
+        ) * 0.85);
+        const sphereRadius = window.innerWidth < 640 ? baseRadius * 0.7 : baseRadius;
+        
         const x = sphereRadius * radius * Math.cos(phi);
         const z = sphereRadius * radius * Math.sin(phi);
         const yPos = sphereRadius * y;
@@ -494,8 +499,12 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
         // Calculate screen coordinates (perspective projection)
         const focalLength = 1400;
         const scale = focalLength / (focalLength + rotatedZ);
-        const screenX = x * scale;
-        const screenY = rotatedY * scale;
+        
+        // Center positions relative to container center
+        const centerX = containerRef.current?.offsetWidth ? containerRef.current.offsetWidth / 2 : 0;
+        const centerY = containerRef.current?.offsetHeight ? containerRef.current.offsetHeight / 2 : 0;
+        const screenX = centerX + x * scale;
+        const screenY = centerY + rotatedY * scale;
         
         // Only display skills if in front of the viewer (with more visibility tolerance)
         // Use exactly the same visibility calculation as the tentacles
@@ -511,6 +520,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
           Math.min(1, Math.max(0.4, (rotatedZ + sphereRadius) / (sphereRadius)));
           
         const isSelected = selectedSkill === index;
+        const isHovered = selectedSkill === index;
         
         // Calculate blur based on z position (reduce blur for better visibility)
         const blur = rotatedZ < 0 && !isSelected ? `blur(${Math.abs(rotatedZ / 800)}px)` : 'blur(0)';
@@ -539,14 +549,20 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
               transform: `translate(-50%, -50%) scale(${sizeScale})`,
               width: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
               height: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
-              opacity: isVisible ? (selectedSkill === index ? 1 : 0.9) : 0,
+              opacity: isVisible ? (isHovered ? 1 : opacity) : 0,
               pointerEvents: isVisible ? 'auto' : 'none',
               transition: 'opacity 0.4s ease, filter 0.3s ease, transform 0.3s ease',
             }}
             onMouseEnter={() => setSelectedSkill(index)}
-            onTouchStart={() => setSelectedSkill(index)}
+            onTouchStart={(e) => {
+              e.preventDefault(); // Prevent default to avoid scroll issues
+              setSelectedSkill(index);
+            }}
             onMouseLeave={() => setSelectedSkill(null)}
-            onTouchEnd={() => setSelectedSkill(null)}
+            onTouchEnd={(e) => {
+              e.preventDefault(); // Prevent default to avoid scroll issues
+              setSelectedSkill(null);
+            }}
           >
             <div 
               className={`
@@ -557,9 +573,10 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                 items-center 
                 justify-center
                 ${isSelected 
-                  ? 'bg-blue-500/10 border border-blue-500/30 p-1 backdrop-blur-sm hover:scale-105' 
-                  : 'hover:scale-105 p-0.5'
+                  ? 'bg-blue-500/10 border border-blue-500/30 p-1 backdrop-blur-sm' 
+                  : 'p-0.5'
                 }
+                hover:scale-110 
                 transition-all duration-200
               `}
               style={{
