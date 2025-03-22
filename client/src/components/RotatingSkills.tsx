@@ -522,8 +522,8 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
         // Calculate blur based on z position (reduce blur for better visibility)
         const blur = rotatedZ < 0 && !isSelected ? `blur(${Math.abs(rotatedZ / 800)}px)` : 'blur(0)';
         
-        // Update the scale calculation to avoid glitches
-        const sizeScale = isSelected ? 1.3 : Math.max(0.9, Math.min(1.2, scale * 1.1));
+        // Update the scale calculation to avoid glitches - remove any scaling on hover/selection
+        const sizeScale = Math.max(0.95, Math.min(1.0, scale));
 
         return (
           <div
@@ -544,11 +544,11 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
               left: `${screenX}px`,
               top: `${screenY}px`,
               transform: `translate(-50%, -50%) scale(${sizeScale})`,
-              width: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
-              height: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
+              width: `${window.innerWidth < 640 ? '50px' : '60px'}`,
+              height: `${window.innerWidth < 640 ? '50px' : '60px'}`,
               opacity: isVisible ? (isHovered ? 1 : opacity) : 0,
               pointerEvents: isVisible ? 'auto' : 'none',
-              transition: 'opacity 0.4s ease, filter 0.3s ease, transform 0.3s ease',
+              transition: 'opacity 0.3s ease, filter 0.2s ease',
             }}
             onMouseEnter={() => setSelectedSkill(index)}
             onTouchStart={(e) => {
@@ -574,11 +574,10 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                   ? 'bg-blue-500/10 border border-blue-500/30 p-1 backdrop-blur-sm' 
                   : 'p-0.5'
                 }
-                hover:scale-110 
-                transition-all duration-200
+                transition-colors duration-100
               `}
               style={{
-                boxShadow: isSelected ? '0 0 15px rgba(59, 130, 246, 0.3)' : 'none',
+                boxShadow: isSelected ? '0 0 10px rgba(59, 130, 246, 0.2)' : 'none',
               }}
             >
               <img 
@@ -592,11 +591,11 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                     ? 'brightness-[1.2] contrast-[1.1]' 
                     : 'brightness-100 contrast-100'
                   }
-                  transition-transform duration-200
+                  scale-100
                 `}
                 style={{
                   filter: isSelected 
-                    ? 'drop-shadow(0 0 3px rgba(59, 130, 246, 0.5))' 
+                    ? 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))' 
                     : 'none',
                 }}
               />
