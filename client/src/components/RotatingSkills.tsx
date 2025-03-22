@@ -451,17 +451,13 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
       
       {/* Center toolkit hub with counter-rotation */}
       <div 
-        className="absolute flex items-center justify-center rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm w-16 h-16 sm:w-20 sm:h-20 z-10"
+        className="absolute flex items-center justify-center rounded-full bg-blue-600/40 border border-blue-400/40 backdrop-blur-md w-16 h-16 sm:w-20 sm:h-20 z-20 hub-glow"
         style={{
-          boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
           '--x-rotation': `${Math.sin(hubRotation/30) * 15}deg`,
         } as React.CSSProperties}
       >
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex flex-col items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-          <span className="text-[10px] text-blue-500 font-medium mt-1">My Toolkit</span>
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-700 flex items-center justify-center overflow-hidden">
+          <span className="text-xs text-white font-bold tracking-wide text-center">My Toolkit</span>
         </div>
       </div>
 

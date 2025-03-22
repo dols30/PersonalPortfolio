@@ -116,7 +116,7 @@ const Home = () => {
       id: 2,
       title: "Theater Seating Management",
       description: "An application for managing theater seating arrangements, ticket booking, and occupancy tracking for movie theaters.",
-      image: "https://cdn.pixabay.com/photo/2019/04/15/11/42/cinema-4129401_1280.jpg",
+      image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
       githubLink: "https://github.com/dols30",
       liveLink: "https://example.com/theater-seating",
       technologies: ["C#", ".NET MAUI", "UI Design", "Algorithms"]
@@ -125,7 +125,7 @@ const Home = () => {
       id: 3,
       title: "2D Platformer Game",
       description: "A 2D platformer game developed using Unity engine with custom character animations and level design.",
-      image: "https://cdn.dribbble.com/users/383277/screenshots/1236626/media/f9df8a8fa492b894f799e5f06ba4c26b.png",
+      image: "https://img.freepik.com/free-vector/game-asset-cartoon-gui-elements-mobile-app_107791-8757.jpg?size=626&ext=jpg&ga=GA1.1.632798143.1711329600&semt=ais",
       githubLink: "https://github.com/dols30",
       liveLink: "https://example.com/platformer-game",
       technologies: ["C#", "Unity", "Game Dev", "Level Design"]
