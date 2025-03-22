@@ -285,8 +285,11 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     
+    // Responsive sphere radius based on container width
+    const baseRadius = Math.min(220, Math.min(centerX, centerY) * 0.85);
+    
     // Pre-calculate shared values outside the loop for better performance
-    const sphereRadius = 220; // Larger radius for bigger sphere
+    const sphereRadius = window.innerWidth < 640 ? baseRadius * 0.7 : baseRadius; // Scale down on mobile
     
     // Calculate 3D positions for all skills first
     const skillPositions = displaySkills.map((_, index) => {
@@ -432,170 +435,172 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
   };
 
   return (
-    <div className="py-12">
+    <div 
+      ref={containerRef}
+      className="relative w-full md:h-[500px] h-[400px] flex items-center justify-center"
+      onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
+      onMouseEnter={() => setIsPaused(false)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Tentacle canvas */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+      />
+      
+      {/* Center toolkit hub with counter-rotation */}
       <div 
-        className="relative h-[550px] w-full max-w-[750px] mx-auto perspective-1000"
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
-        onMouseEnter={() => setIsPaused(false)}
-        onMouseLeave={() => setIsPaused(false)} // Keep animating when mouse leaves
-        style={{ touchAction: 'none' }} // Prevent scrolling when interacting
+        className="absolute flex items-center justify-center rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm w-16 h-16 sm:w-20 sm:h-20 z-10"
+        style={{
+          boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
+          '--x-rotation': `${Math.sin(hubRotation/30) * 15}deg`,
+        } as React.CSSProperties}
       >
-        {/* Canvas for tentacles */}
-        <canvas 
-          ref={canvasRef} 
-          className="absolute inset-0 w-full h-full tentacle-canvas"
-          width={750}
-          height={550}
-        />
-        
-        {/* Only render skills if images are loaded */}
-        {imagesLoaded && displaySkills.map((skill, index) => {
-          // Create positions on a sphere using full spherical coordinates
-          // Uses spherical coordinates to place skills evenly around a complete sphere
-          const y = 1 - (index / (displaySkills.length - 1)) * 2; // Range from 1 to -1
-          const radius = Math.sqrt(1 - y * y); // Radius at this y
-          
-          // Apply rotation to the angle
-          const angle = (index * 137.5 + rotation) % 360; // Golden angle is ~137.5 degrees
-          const phi = (angle * Math.PI) / 180;
-          
-          // Calculate 3D coordinates
-          const sphereRadius = 220; // Larger radius to increase ring size
-          const x = sphereRadius * radius * Math.cos(phi);
-          const z = sphereRadius * radius * Math.sin(phi);
-          const yPos = sphereRadius * y;
-          
-          // Apply full vertical rotation
-          const vertRad = (verticalRotation * Math.PI) / 180;
-          // Use full 3D rotation matrix for proper rotation in all axes
-          const cosVert = Math.cos(vertRad);
-          const sinVert = Math.sin(vertRad);
-          
-          // Apply rotation around X axis for complete top-to-bottom rotation
-          const rotatedY = yPos * cosVert - z * sinVert;
-          const rotatedZ = yPos * sinVert + z * cosVert;
-          
-          // Calculate screen coordinates (perspective projection)
-          const focalLength = 1400;
-          const scale = focalLength / (focalLength + rotatedZ);
-          const screenX = x * scale;
-          const screenY = rotatedY * scale;
-          
-          // Only display skills if in front of the viewer (with more visibility tolerance)
-          // Use exactly the same visibility calculation as the tentacles
-          const isVisible = rotatedZ > -sphereRadius*0.8 || selectedSkill === index;
-          if (!isVisible) return null;
-          
-          // Calculate visual properties based on position
-          const zIndex = Math.round(rotatedZ + 100);
-          
-          // Match opacity calculation with tentacle opacity for consistency
-          const opacity = selectedSkill === index ? 
-            1 : 
-            Math.min(1, Math.max(0.4, (rotatedZ + sphereRadius) / (sphereRadius)));
-            
-          const isSelected = selectedSkill === index;
-          
-          // Calculate blur based on z position (reduce blur for better visibility)
-          const blur = rotatedZ < 0 && !isSelected ? `blur(${Math.abs(rotatedZ / 800)}px)` : 'blur(0)';
-          
-          // Update the scale calculation to avoid glitches
-          const sizeScale = isSelected ? 1.3 : Math.max(0.9, Math.min(1.2, scale * 1.1));
-
-          return (
-            <div
-              key={skill.name}
-              className="absolute top-1/2 left-1/2 skill-node"
-              style={{
-                transform: `translate(calc(-50% + ${screenX}px), calc(-50% + ${screenY}px))`,
-                zIndex,
-                opacity: isSelected ? 1 : opacity,
-                filter: isSelected ? 'none' : blur,
-                transition: "opacity 0.2s ease-out, filter 0.2s ease-out",
-              }}
-              onClick={() => setSelectedSkill(index === selectedSkill ? null : index)}
-            >
-              <div 
-                className={`
-                  relative rounded-full p-2.5
-                  bg-white/95 dark:bg-slate-800/95 
-                  border-4 ${isSelected 
-                    ? 'border-blue-500 shadow-lg shadow-blue-500/40 dark:shadow-blue-400/50' 
-                    : 'border-slate-200 dark:border-slate-600 shadow-md'} 
-                  flex items-center justify-center 
-                  skill-node-inner
-                  ${isSelected ? 'pulse-glow skill-glow' : ''}
-                `}
-                style={{
-                  width: '72px',
-                  height: '72px',
-                  transform: `scale(${sizeScale})`,
-                  transition: 'transform 0.2s ease-out, box-shadow 0.3s ease'
-                }}
-              >
-                <img
-                  src={getLogoForSkill(skill.name)}
-                  alt={skill.name}
-                  className="w-12 h-12 object-contain drop-shadow-md dark:drop-shadow-lg transition-transform duration-200"
-                  loading="eager"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDA3NEU4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtY29kZSI+PHBvbHlsaW5lIHBvaW50cz0iMTYgMTggMjIgMTIgMTYgNiI+PC9wb2x5bGluZT48cG9seWxpbmUgcG9pbnRzPSI4IDYgMiAxMiA4IDE4Ij48L3BvbHlsaW5lPjwvc3ZnPg==";
-                  }}
-                />
-              </div>
-              <span className={`
-                mt-1.5 text-xs font-semibold 
-                px-3 py-1 rounded-full 
-                ${isSelected ? 
-                  'bg-blue-500 text-white shadow-md' : 
-                  'bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-600 shadow-md'
-                }
-                transition-all duration-300
-                max-w-[100px] truncate text-center block
-              `}>
-                {skill.name}
-              </span>
-            </div>
-          );
-        })}
-        
-        {/* Center hub with tools icon - static position */}
-        <div className="absolute inset-0 flex items-center justify-center z-[40] pointer-events-none">
-          <div 
-            className="w-20 h-20 rounded-full bg-blue-500 dark:bg-blue-600 center-hub flex flex-col items-center justify-center shadow-lg"
-          >
-            <div className="flex flex-col items-center justify-center sphere-content">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="22" 
-                height="22" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="white" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="toolkit-icon"
-              >
-                <path d="M3 22v-3.92a2.52 2.52 0 0 1 .52-1.55l5-6.08a2.5 2.5 0 0 1 4 .1l4.5 6a2.51 2.51 0 0 1 .5 1.5V22"></path>
-                <path d="M2 13h2"></path>
-                <path d="M20 13h2"></path>
-                <path d="M14 2v2"></path>
-                <path d="M10 2v2"></path>
-                <path d="m10 12 4 10"></path>
-                <path d="m14 12-4 10"></path>
-              </svg>
-              <span className="text-xs font-semibold text-white toolkit-text mt-1">
-                My Toolkit
-              </span>
-            </div>
-          </div>
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
         </div>
       </div>
+
+      {/* Skill nodes */}
+      {imagesLoaded && displaySkills.map((skill, index) => {
+        // Create positions on a sphere using full spherical coordinates
+        // Uses spherical coordinates to place skills evenly around a complete sphere
+        const y = 1 - (index / (displaySkills.length - 1)) * 2; // Range from 1 to -1
+        const radius = Math.sqrt(1 - y * y); // Radius at this y
+        
+        // Apply rotation to the angle
+        const angle = (index * 137.5 + rotation) % 360; // Golden angle is ~137.5 degrees
+        const phi = (angle * Math.PI) / 180;
+        
+        // Calculate 3D coordinates
+        const sphereRadius = 220; // Larger radius to increase ring size
+        const x = sphereRadius * radius * Math.cos(phi);
+        const z = sphereRadius * radius * Math.sin(phi);
+        const yPos = sphereRadius * y;
+        
+        // Apply full vertical rotation
+        const vertRad = (verticalRotation * Math.PI) / 180;
+        // Use full 3D rotation matrix for proper rotation in all axes
+        const cosVert = Math.cos(vertRad);
+        const sinVert = Math.sin(vertRad);
+        
+        // Apply rotation around X axis for complete top-to-bottom rotation
+        const rotatedY = yPos * cosVert - z * sinVert;
+        const rotatedZ = yPos * sinVert + z * cosVert;
+        
+        // Calculate screen coordinates (perspective projection)
+        const focalLength = 1400;
+        const scale = focalLength / (focalLength + rotatedZ);
+        const screenX = x * scale;
+        const screenY = rotatedY * scale;
+        
+        // Only display skills if in front of the viewer (with more visibility tolerance)
+        // Use exactly the same visibility calculation as the tentacles
+        const isVisible = rotatedZ > -sphereRadius*0.8 || selectedSkill === index;
+        if (!isVisible) return null;
+        
+        // Calculate visual properties based on position
+        const zIndex = Math.round(rotatedZ + 100);
+        
+        // Match opacity calculation with tentacle opacity for consistency
+        const opacity = selectedSkill === index ? 
+          1 : 
+          Math.min(1, Math.max(0.4, (rotatedZ + sphereRadius) / (sphereRadius)));
+          
+        const isSelected = selectedSkill === index;
+        
+        // Calculate blur based on z position (reduce blur for better visibility)
+        const blur = rotatedZ < 0 && !isSelected ? `blur(${Math.abs(rotatedZ / 800)}px)` : 'blur(0)';
+        
+        // Update the scale calculation to avoid glitches
+        const sizeScale = isSelected ? 1.3 : Math.max(0.9, Math.min(1.2, scale * 1.1));
+
+        return (
+          <div
+            key={index}
+            className={`
+              skill-node 
+              absolute 
+              flex 
+              items-center 
+              justify-center 
+              rounded-full 
+              hover:z-50 
+              transition-opacity
+              ${isVisible ? 'opacity-100' : 'opacity-0'}
+              ${isSelected ? 'z-20' : 'z-10'}
+            `}
+            style={{
+              left: `${screenX}px`,
+              top: `${screenY}px`,
+              transform: `translate(-50%, -50%) scale(${sizeScale})`,
+              width: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
+              height: `${isSelected ? 'auto' : (window.innerWidth < 640 ? '50px' : '60px')}`,
+              opacity: isVisible ? (selectedSkill === index ? 1 : 0.9) : 0,
+              pointerEvents: isVisible ? 'auto' : 'none',
+              transition: 'opacity 0.4s ease, filter 0.3s ease, transform 0.3s ease',
+            }}
+            onMouseEnter={() => setSelectedSkill(index)}
+            onTouchStart={() => setSelectedSkill(index)}
+            onMouseLeave={() => setSelectedSkill(null)}
+            onTouchEnd={() => setSelectedSkill(null)}
+          >
+            <div 
+              className={`
+                w-full 
+                h-full 
+                rounded-full 
+                flex 
+                items-center 
+                justify-center
+                ${isSelected 
+                  ? 'bg-blue-500/10 border border-blue-500/30 p-1 backdrop-blur-sm hover:scale-105' 
+                  : 'hover:scale-105 p-0.5'
+                }
+                transition-all duration-200
+              `}
+              style={{
+                boxShadow: isSelected ? '0 0 15px rgba(59, 130, 246, 0.3)' : 'none',
+              }}
+            >
+              <img 
+                src={getLogoForSkill(skill.name)} 
+                alt={skill.name}
+                className={`
+                  w-full 
+                  h-full 
+                  object-contain 
+                  ${isDarkMode 
+                    ? 'brightness-[1.2] contrast-[1.1]' 
+                    : 'brightness-100 contrast-100'
+                  }
+                  transition-transform duration-200
+                `}
+                style={{
+                  filter: isSelected 
+                    ? 'drop-shadow(0 0 3px rgba(59, 130, 246, 0.5))' 
+                    : 'none',
+                }}
+              />
+            </div>
+            
+            {isSelected && (
+              <div 
+                className="absolute top-full mt-2 px-3 py-1.5 bg-blue-500/80 dark:bg-blue-600/90 backdrop-blur-sm text-white rounded-lg text-sm whitespace-nowrap transform -translate-x-1/2 left-1/2"
+                style={{
+                  boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.5)',
+                }}
+              >
+                <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-500 dark:bg-blue-600 rotate-45"></span>
+                {skill.name}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

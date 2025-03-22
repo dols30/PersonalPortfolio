@@ -107,25 +107,37 @@ const Home = () => {
       id: 1,
       title: "Spam Word Detection System",
       description: "A spam detection system using Trie data structure to efficiently store and search for spam words in email content.",
-      image: "https://www.malwarebytes.com/wp-content/uploads/sites/2/2023/12/spam-emails.png",
+      image: "https://img.freepik.com/free-vector/spam-concept-illustration_114360-7128.jpg?w=826&t=st=1711329720~exp=1711330320~hmac=aef8c7f97af2d069e3c50b03d007a9a9cb8ecd599c5b0eb81fcdb63e2e83a1fe",
       githubLink: "https://github.com/dols30",
+      liveLink: "https://example.com/spam-detection",
       technologies: ["C++", "Qt Framework", "Git", "Data Structures"]
     },
     {
       id: 2,
       title: "Theater Seating Management",
       description: "An application for managing theater seating arrangements, ticket booking, and occupancy tracking for movie theaters.",
-      image: "https://media.istockphoto.com/id/907935618/vector/cinema-hall-flat-illustration.jpg?s=612x612&w=0&k=20&c=ZGcrsoMizA7k1BH8b6DFj6Z6C_w-eB9hNPxOGlH3O_U=",
+      image: "https://img.freepik.com/free-vector/cinema-realistic-poster-with-illuminated-seats-projector-audience-watching-movie_1284-28234.jpg?w=996&t=st=1711329694~exp=1711330294~hmac=c7be4f0d809e6dfa0a4a511f899389da5f4d62e95df3f51eccd0bc1a7a61a7e7",
       githubLink: "https://github.com/dols30",
+      liveLink: "https://example.com/theater-seating",
       technologies: ["C#", ".NET MAUI", "UI Design", "Algorithms"]
     },
     {
       id: 3,
       title: "2D Platformer Game",
       description: "A 2D platformer game developed using Unity engine with custom character animations and level design.",
-      image: "https://gamedevacademy.org/wp-content/uploads/2022/05/Screenshot-2022-05-04-at-16.01.56.png",
+      image: "https://img.freepik.com/free-vector/game-level-background-scene_107791-15402.jpg?w=1380&t=st=1711329819~exp=1711330419~hmac=2c5a69adb5df05ddfa5a0c85f40e32cd954f7a4b7c4dfbe4fcc27344ba00bfa8",
       githubLink: "https://github.com/dols30",
+      liveLink: "https://example.com/platformer-game",
       technologies: ["C#", "Unity", "Game Dev", "Level Design"]
+    },
+    {
+      id: 4,
+      title: "Portfolio Website",
+      description: "A modern responsive portfolio website built with React, TypeScript, and Tailwind CSS featuring interactive components.",
+      image: "https://img.freepik.com/free-vector/website-development-banner_33099-1687.jpg?w=1380&t=st=1711329864~exp=1711330464~hmac=5cdd057d72d15c9fa07af0c45a40e12d54389cefa17cf83a2247e0cc35eaef18",
+      githubLink: "https://github.com/dols30/PersonalPortfolio",
+      liveLink: "https://dolraj-portfolio.vercel.app",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"]
     }
   ];
   
