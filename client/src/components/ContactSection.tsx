@@ -211,7 +211,7 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   name="email" 
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com" 
+                  placeholder="dols@example.com" 
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                 />
