@@ -12,8 +12,9 @@ import ShineEffect from "@/components/ShineEffect";
 import WaveAnimation from "@/components/WaveAnimation";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Skill, Project, SocialLink, ContactInfo, Stat } from "@/types";
+import React from "react";
 
-const Home = () => {
+const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState("profile");
   useScrollAnimation();
   
@@ -109,7 +110,7 @@ const Home = () => {
       description: "A responsive web development learning platform with course management, user dashboard, interactive UI, and content management system.",
       image: "/images/webticode-image.jpg",
       githubLink: "https://github.com/dols30/WebtiCode",
-      liveLink: "https://webti-code.vercel.app",
+      liveLink: "https://webticode.vercel.app",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React", "Shadcn UI"]
     },
     {
@@ -145,7 +146,7 @@ const Home = () => {
       description: "A modern responsive portfolio website built with React, TypeScript, and Tailwind CSS featuring interactive components.",
       image: "https://img.freepik.com/free-vector/website-development-banner_33099-1687.jpg?w=1380&t=st=1711329864~exp=1711330464~hmac=5cdd057d72d15c9fa07af0c45a40e12d54389cefa17cf83a2247e0cc35eaef18",
       githubLink: "https://github.com/dols30/PersonalPortfolio",
-      liveLink: "https://dolraj-portfolio.vercel.app",
+      liveLink: "https://dols30.vercel.app",
       technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"]
     }
   ];
