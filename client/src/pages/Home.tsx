@@ -131,15 +131,6 @@ const Home = () => {
       technologies: ["C#", ".NET MAUI", "UI Design", "Algorithms"]
     },
     {
-      id: 3,
-      title: "2D Platformer Game",
-      description: "A 2D platformer game developed using Unity engine with custom character animations and level design.",
-      image: "https://img.freepik.com/free-vector/game-asset-cartoon-gui-elements-mobile-app_107791-8757.jpg?size=626&ext=jpg&ga=GA1.1.632798143.1711329600&semt=ais",
-      githubLink: "https://github.com/dols30",
-      liveLink: "https://example.com/platformer-game",
-      technologies: ["C#", "Unity", "Game Dev", "Level Design"]
-    },
-    {
       id: 4,
       title: "Portfolio Website",
       description: "A modern responsive portfolio website built with React, TypeScript, and Tailwind CSS featuring interactive components.",
