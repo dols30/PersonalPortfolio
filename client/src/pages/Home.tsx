@@ -104,6 +104,15 @@ const Home = () => {
   
   const projects: Project[] = [
     {
+      id: 5,
+      title: "WebtiCode - Learning Platform",
+      description: "A responsive web development learning platform with course management, user dashboard, interactive UI, and content management system.",
+      image: "https://camo.githubusercontent.com/ef4b7eb893f2012f8dd4b428b8278af8ccab83e42a16de2370307d04e1a2242f/68747470733a2f2f696d672e6672656570696b2e636f6d2f667265652d766563746f722f6f6e6c696e652d6c6561726e696e672d65647563617469276e2d737461792d686f6d652d636f6e636570742e2d766563746f722d696c6c757374726174696f6e2d6973736f6c617465642d776869746526773d313438302673743d31373131333239393132266578703d3137313133333035313226686d61633d62366131323931636266363930323039626166393865636239366639313831333539393338333832326461346638663036386361653266323662303538363535",
+      githubLink: "https://github.com/dols30/WebtiCode",
+      liveLink: "https://webti-code.vercel.app",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React", "Shadcn UI"]
+    },
+    {
       id: 1,
       title: "Spam Word Detection System",
       description: "A spam detection system using Trie data structure to efficiently store and search for spam words in email content.",
