@@ -114,13 +114,22 @@ const Home: React.FC = () => {
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React", "Shadcn UI"]
     },
     {
+      id: 6,
+      title: "SpamTrie Sentinel",
+      description: "A modern spam detection application featuring real-time detection using trie data structures, interactive visualization, and a sleek UI built with shadcn/ui components. Includes efficient state management and type-safe development.",
+      image: "/images/spamtrie-image.jpg",
+      githubLink: "https://github.com/dols30/spamtrie-sentinel.git",
+      liveLink: "https://spamtrie-sentinel.vercel.app",
+      technologies: ["React", "TypeScript", "Vite", "shadcn/ui", "Tailwind CSS", "React Query", "React Router", " Trie Data Structure"]
+    },
+    {
       id: 1,
       title: "Spam Word Detection System",
       description: "A spam detection system using Trie data structure to efficiently store and search for spam words in email content.",
       image: "https://img.freepik.com/free-vector/spam-concept-illustration_114360-7128.jpg?w=826&t=st=1711329720~exp=1711330320~hmac=aef8c7f97af2d069e3c50b03d007a9a9cb8ecd599c5b0eb81fcdb63e2e83a1fe",
       githubLink: "https://github.com/dols30",
       liveLink: "https://example.com/spam-detection",
-      technologies: ["C++", "Qt Framework", "Git", "Data Structures"]
+      technologies: ["C++", "Qt Framework", "Git", "Trie Data Structure"]
     },
     {
       id: 2,
