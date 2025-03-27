@@ -1,8 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ContactInfo, SocialLink } from "@/types";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from '@emailjs/browser';
-import { emailjsConfig } from "@/lib/emailjs";
 
 interface ContactSectionProps {
   contactInfo: ContactInfo;
@@ -10,64 +8,36 @@ interface ContactSectionProps {
 }
 
 const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+  // Set up the subject field synchronization
+  useEffect(() => {
+    const subjectField = document.getElementById('subject') as HTMLInputElement;
+    const hiddenSubjectField = document.getElementById('_subject') as HTMLInputElement;
+    
+    if (subjectField && hiddenSubjectField) {
+      const syncFields = () => {
+        hiddenSubjectField.value = subjectField.value;
+      };
+      
+      subjectField.addEventListener('input', syncFields);
+      
+      return () => {
+        subjectField.removeEventListener('input', syncFields);
+      };
+    }
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
     setIsSubmitting(true);
     
-    try {
-      // Send email using EmailJS
-      if (!formRef.current) return;
-      
-      const result = await emailjs.sendForm(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        formRef.current,
-        emailjsConfig.publicKey
-      );
-      
-      if (result.text === 'OK') {
-        toast({
-          title: "Message Sent!",
-          description: "Thanks for your message! It has been sent to nishank.paudel1@gmail.com",
-        });
-        
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      toast({
-        title: "Error Sending Message",
-        description: "There was a problem sending your message. Please try again later.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    toast({
+      title: "Sending Message...",
+      description: "Your message is being sent to nishank.paudel1@gmail.com",
+    });
+    
+    // Let the form submit naturally
   };
 
   return (
@@ -168,9 +138,19 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
               Send Me a Message
             </h3>
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-              <input type="hidden" name="from_name" value={formData.name} />
-              <input type="hidden" name="to_email" value="nishank.paudel1@gmail.com" />
+            <form 
+              onSubmit={handleSubmit} 
+              className="space-y-4"
+              action="https://formsubmit.co/nishank.paudel1@gmail.com" 
+              method="POST"
+            >
+              {/* FormSubmit honeypot field to prevent spam */}
+              <input type="text" name="_honey" style={{ display: 'none' }} />
+              {/* Disable captcha */}
+              <input type="hidden" name="_captcha" value="false" />
+              {/* Redirect after submission */}
+              <input type="hidden" name="_next" value={window.location.href} />
+              
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1">
                   Your Name
@@ -179,8 +159,6 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   type="text" 
                   id="name" 
                   name="name" 
-                  value={formData.name}
-                  onChange={handleChange}
                   placeholder="Dolraj Bashyal"
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
@@ -195,8 +173,6 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   type="email" 
                   id="email" 
                   name="email" 
-                  value={formData.email}
-                  onChange={handleChange}
                   placeholder="dols@example.com" 
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
@@ -211,12 +187,11 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   type="text" 
                   id="subject" 
                   name="subject" 
-                  value={formData.subject}
-                  onChange={handleChange}
                   placeholder="Project Inquiry" 
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                 />
+                <input type="hidden" name="_subject" id="_subject" value="" />
               </div>
 
               <div>
@@ -227,8 +202,6 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
                   id="message" 
                   name="message" 
                   rows={4} 
-                  value={formData.message}
-                  onChange={handleChange}
                   placeholder="Your message here..." 
                   required 
                   className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white resize-none"
