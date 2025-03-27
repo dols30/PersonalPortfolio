@@ -34,45 +34,29 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
     
     try {
       // Send email using EmailJS
-      if (emailjsConfig.serviceId === "YOUR_EMAILJS_SERVICE_ID") {
-        // If EmailJS is not configured yet, use the simulated version
-        setTimeout(() => {
-          toast({
-            title: "Demo Mode",
-            description: "This form is in demo mode. To receive actual emails, configure EmailJS credentials.",
-          });
-          setFormData({
-            name: "",
-            email: "",
-            subject: "",
-            message: ""
-          });
-          setIsSubmitting(false);
-        }, 1500);
-      } else {
-        // Send actual email
-        const result = await emailjs.sendForm(
-          emailjsConfig.serviceId,
-          emailjsConfig.templateId,
-          formRef.current!,
-          emailjsConfig.publicKey
-        );
+      if (!formRef.current) return;
+      
+      const result = await emailjs.sendForm(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        formRef.current,
+        emailjsConfig.publicKey
+      );
+      
+      if (result.text === 'OK') {
+        toast({
+          title: "Message Sent!",
+          description: "Thanks for your message! It has been sent to nishank.paudel1@gmail.com",
+        });
         
-        if (result.text === 'OK') {
-          toast({
-            title: "Message Sent!",
-            description: "Thanks for your message! I'll get back to you soon.",
-          });
-          
-          setFormData({
-            name: "",
-            email: "",
-            subject: "",
-            message: ""
-          });
-        } else {
-          throw new Error('Failed to send message');
-        }
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error('Error sending email:', error);
@@ -185,6 +169,8 @@ const ContactSection = ({ contactInfo, socialLinks }: ContactSectionProps) => {
             </h3>
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+              <input type="hidden" name="from_name" value={formData.name} />
+              <input type="hidden" name="to_email" value="nishank.paudel1@gmail.com" />
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1">
                   Your Name
