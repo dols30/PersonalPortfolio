@@ -4,10 +4,5 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "@vercel/node"
-    }
-  }
+  ]
 } 
