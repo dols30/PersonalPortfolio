@@ -40,6 +40,8 @@ export default defineConfig({
             return 'vendor';
           }
         },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
     minify: 'terser',
@@ -50,8 +52,15 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 1000,
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'lucide-react'],
+    esbuildOptions: {
+      jsx: 'automatic',
+    },
   },
 });
