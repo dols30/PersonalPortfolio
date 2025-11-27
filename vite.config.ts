@@ -30,11 +30,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Keep React and React-DOM together and ensure they load first
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'react-vendor';
-          }
-          if (id.includes('node_modules')) {
+          // Don't split React - keep it in main bundle to avoid loading order issues
+          if (id.includes('node_modules') && !id.includes('react') && !id.includes('react-dom')) {
             if (id.includes('lucide-react')) {
               return 'ui-vendor';
             }
