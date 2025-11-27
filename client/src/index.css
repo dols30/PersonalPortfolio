@@ -1,0 +1,463 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    animation: fadeInPage 0.5s ease-in-out forwards;
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #000000, #121212, #1a1a1a, #0a0a0a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeInPage {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-on-scroll {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 1 !important;
+  }
+  
+  .animate-stagger-1 { animation-delay: 0.1s; }
+  .animate-stagger-2 { animation-delay: 0.2s; }
+  .animate-stagger-3 { animation-delay: 0.3s; }
+  .animate-stagger-4 { animation-delay: 0.4s; }
+  .animate-stagger-5 { animation-delay: 0.5s; }
+  
+  .slide-in-right {
+    animation: slideInFromRight 0.6s ease-out forwards;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .fade-in {
+    animation-name: fade-in;
+  }
+  
+  .zoom-in {
+    animation-name: zoom-in;
+  }
+  
+  .slide-in-from-bottom-4 {
+    animation-name: slide-in-from-bottom-4;
+  }
+  
+  .slide-in-from-top-4 {
+    animation-name: slide-in-from-top-4;
+  }
+}
+
+@layer components {
+  .skill-progress {
+    @apply transition-all duration-1000 ease-in-out;
+  }
+
+  .nav-link {
+    @apply relative font-medium hover:text-blue-600;
+  }
+  
+  .dark .nav-link:hover {
+    @apply text-gray-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out;
+  }
+
+  .dark .nav-link::after {
+    @apply bg-gray-400;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .project-card {
+    @apply transition-all duration-300 ease-in-out;
+    opacity: 0;
+  }
+
+  .project-card:hover {
+    @apply transform -translate-y-1 shadow-xl;
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+  }
+  
+  .skill-item {
+    @apply transition-all duration-300 ease-in-out;
+    opacity: 0;
+  }
+  
+  .skill-item:hover {
+    @apply transform -translate-y-1;
+  }
+}
+
+/* Rotating Skills animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(59, 130, 246, 0.5);
+  }
+}
+
+@keyframes pulse-glow-dark {
+  0%, 100% {
+    box-shadow: 0 0 10px 2px rgba(96, 165, 250, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(96, 165, 250, 0.5);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s infinite;
+}
+
+:is(.dark .pulse-glow) {
+  animation: pulse-glow-dark 3s infinite;
+}
+
+/* Canvas overlay styles for tentacles */
+.tentacle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: normal;
+  pointer-events: none;
+  opacity: 1 !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  z-index: 10;
+  will-change: transform;
+  image-rendering: auto;
+}
+
+.dark .tentacle-canvas {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+/* Always ensure Firefox renders canvas correctly */
+@-moz-document url-prefix() {
+  .tentacle-canvas {
+    mix-blend-mode: normal;
+    opacity: 1;
+  }
+}
+
+/* webkit specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .dark .tentacle-canvas {
+    mix-blend-mode: normal;
+    opacity: 1;
+  }
+}
+
+/* Simple center hub styles for better performance and compatibility */
+.center-hub {
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 2px rgba(59, 130, 246, 0.5);
+  transition: all 0.2s ease;
+  transform-style: preserve-3d;
+  background-image: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6); /* Gradient for 3D effect */
+  box-shadow: 
+    inset -5px -5px 10px rgba(0, 0, 0, 0.4),  /* Inner shadow for depth */
+    inset 5px 5px 10px rgba(255, 255, 255, 0.3),
+    0 0 15px 2px rgba(59, 130, 246, 0.5);    /* Outer glow */
+}
+
+/* Add highlight for 3D effect */
+.center-hub::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.5) 0%, 
+    rgba(255, 255, 255, 0.2) 30%, 
+    rgba(0, 0, 0, 0.2) 70%, 
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+.center-hub::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #3b82f6, #60a5fa);
+  opacity: 0.4;
+  filter: blur(8px);
+}
+
+.dark .center-hub {
+  box-shadow: 
+    inset -5px -5px 10px rgba(0, 0, 0, 0.5),  /* Stronger inner shadow for dark mode */
+    inset 5px 5px 10px rgba(255, 255, 255, 0.2),
+    0 0 15px 4px rgba(96, 165, 250, 0.5);
+  background-image: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6);
+}
+
+.dark .center-hub::before {
+  background: linear-gradient(45deg, #60a5fa, #93c5fd);
+  opacity: 0.5;
+}
+
+/* Make toolkit icon and text stand out */
+.toolkit-icon, 
+.toolkit-text {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  z-index: 5;
+}
+
+/* Enhance text readability */
+.toolkit-text {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced readability in dark mode */
+.dark .toolkit-text {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* 3D Perspective for rotating skills */
+.perspective-1000 {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Skill node hover styles */
+.skill-node {
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+.skill-node:hover {
+  z-index: 50 !important;
+  filter: none !important;
+}
+
+.skill-node-inner {
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+.skill-node:hover .skill-node-inner {
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+.dark .skill-node:hover .skill-node-inner {
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+}
+
+/* Skill node styling improvements */
+.skill-node img {
+  transition: transform 0.2s ease;
+}
+
+.skill-node:hover img {
+  transform: scale(1.1);
+}
+
+/* Improve visibility in both modes */
+.dark .skill-node img {
+  filter: brightness(1.1) contrast(1.05) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.skill-node img {
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Skill stars animation */
+@keyframes star-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.skill-star {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.skill-star-animate {
+  animation: star-appear 0.3s forwards;
+}
+
+.skill-star-1 { animation-delay: 0.1s; }
+.skill-star-2 { animation-delay: 0.2s; }
+.skill-star-3 { animation-delay: 0.3s; }
+.skill-star-4 { animation-delay: 0.4s; }
+.skill-star-5 { animation-delay: 0.5s; }
+
+/* Badge animation */
+@keyframes badge-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.skill-badge {
+  opacity: 0;
+  animation: badge-appear 0.5s forwards;
+  animation-delay: 0.6s;
+}
+
+/* Simpler skill node glow animation */
+@keyframes skill-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px 1px rgba(59, 130, 246, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(59, 130, 246, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Dark mode skill glow animation */
+.dark .skill-node.pulse-glow {
+  animation: skill-glow-dark 3s infinite ease-in-out;
+}
+
+@keyframes skill-glow-dark {
+  0%, 100% {
+    box-shadow: 0 0 5px 1px rgba(96, 165, 250, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(96, 165, 250, 0.6), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Center hub as 3D sphere */
+/* Center sphere styles - removed */
+/* Special pulse and sphere-content styles - removed */
+
