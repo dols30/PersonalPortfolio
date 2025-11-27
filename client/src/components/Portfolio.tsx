@@ -253,7 +253,12 @@ const Portfolio = () => {
 
   const callGeminiChat = useCallback(async (userMessage: string) => {
     try {
-      const response = await fetch('http://localhost:3002/api/chat', {
+      // Use localhost in development, relative path in production
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:3002/api/chat' 
+        : '/api/chat';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage })
@@ -304,7 +309,12 @@ const Portfolio = () => {
     setIsGeneratingIdea(true);
 
     try {
-      const response = await fetch('http://localhost:3002/api/generate-idea', {
+      // Use localhost in development, relative path in production
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:3002/api/generate-idea' 
+        : '/api/generate-idea';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
