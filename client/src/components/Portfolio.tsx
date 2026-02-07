@@ -160,6 +160,24 @@ const Portfolio = () => {
 
   const projects: Project[] = useMemo(() => [
     {
+      id: 10,
+      title: "BC-IAS: Blockchain Access Control Optimization",
+      description: "A research project re-architecting blockchain-based cloud access control by replacing on-chain verification with off-chain Ed25519/X25519 cryptography, achieving ~2.8M× throughput improvement and 200× latency reduction while preserving mutual authentication and forward secrecy.",
+      image: "/images/bc-ias-research.png",
+      githubLink: "/assets/BC-IAS_Research_Paper.pdf",
+      liveLink: "",
+      technologies: ["Blockchain", "Cryptography", "Ed25519", "AES-256-GCM", "Python", "Research"]
+    },
+    {
+      id: 9,
+      title: "Crypto-C - Web3 Security Extension",
+      description: "A Chrome extension for Web3 security featuring real-time URL phishing detection, transaction simulation, risk scoring visualization, and warning overlays for malicious sites.",
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
+      githubLink: "https://github.com/dols30/crypto-c",
+      liveLink: "",
+      technologies: ["Python", "FastAPI", "JavaScript", "Chrome Extension", "Web3", "Machine Learning"]
+    },
+    {
       id: 5,
       title: "WebtiCode - Learning Platform",
       description: "A responsive web development learning platform with course management, user dashboard, interactive UI, and content management system.",
@@ -339,7 +357,7 @@ const Portfolio = () => {
       onClick={() => handleTabChange(id)}
       className={`text-sm font-medium transition-all px-4 py-2 rounded-full flex items-center gap-2 ${
         activeTab === id 
-          ? 'bg-white/10 text-blue-400' 
+          ? 'bg-white/10 text-cyan-400' 
           : 'text-gray-400 hover:text-white hover:bg-white/5'
       }`}
     >
@@ -365,22 +383,22 @@ const Portfolio = () => {
       case 'home':
         return (
           <div className="min-h-[80vh] flex items-center justify-center relative overflow-hidden animate-in fade-in zoom-in duration-500 py-16">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px]" />
+            <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-[100px]" />
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px]" />
 
             <div className="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 w-full">
               <div className="space-y-4 sm:space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs sm:text-sm text-blue-300">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs sm:text-sm text-cyan-300">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                   </span>
                   Available for work
                 </div>
                 
                 <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
                   Hi, I'm <br />
-                  <span className="bg-gradient-to-r from-blue-400 via-emerald-400 to-purple-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
                     Dolraj Bashyal
                   </span>
                 </h1>
@@ -397,7 +415,7 @@ const Portfolio = () => {
                   <a 
                     href="/assets/DolRaj_Bashyal_Resume.pdf"
                     download
-                    className="px-5 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white text-sm sm:text-base font-medium rounded-full hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 bg-cyan-600 text-white text-sm sm:text-base font-medium rounded-full hover:bg-cyan-500 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
                   >
                     <Download size={18} />
                     <span>Download Resume</span>
@@ -410,7 +428,7 @@ const Portfolio = () => {
                   </button>
                   <button 
                     onClick={() => handleTabChange('ask-ai')}
-                    className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 text-blue-300 text-sm sm:text-base font-medium rounded-full hover:bg-white/10 transition-all border border-blue-500/20 flex items-center justify-center gap-2"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 bg-cyan-500/10 text-cyan-300 text-sm sm:text-base font-medium rounded-full hover:bg-white/10 transition-all border border-cyan-500/20 flex items-center justify-center gap-2"
                   >
                     <Sparkles size={18} />
                     <span>Ask AI</span>
@@ -432,35 +450,35 @@ const Portfolio = () => {
                   </div>
                   <div className="space-y-4 font-mono text-sm">
                     <div className="flex gap-2">
-                      <span className="text-purple-400">const</span>
-                      <span className="text-blue-400">developer</span>
+                      <span className="text-gray-400">const</span>
+                      <span className="text-cyan-400">developer</span>
                       <span className="text-white">=</span>
                       <span className="text-white">{`{`}</span>
                     </div>
                     <div className="pl-4 space-y-2">
                       <div>
                         <span className="text-slate-400">name:</span>
-                        <span className="text-emerald-400"> 'Dol Raj Bashyal'</span>,
+                        <span className="text-cyan-400"> 'Dol Raj Bashyal'</span>,
                       </div>
                       <div>
                         <span className="text-slate-400">role:</span>
-                        <span className="text-emerald-400"> 'CS Student & Dev'</span>,
+                        <span className="text-cyan-400"> 'CS Student & Dev'</span>,
                       </div>
                       <div>
                         <span className="text-slate-400">focus:</span>
-                        <span className="text-emerald-400"> 'Elegant Solutions'</span>,
+                        <span className="text-cyan-400"> 'Elegant Solutions'</span>,
                       </div>
                       <div>
                         <span className="text-slate-400">skills:</span>
                         <span className="text-white"> [</span>
-                        <span className="text-emerald-400">'React'</span>,
-                        <span className="text-emerald-400"> 'TypeScript'</span>,
-                        <span className="text-emerald-400"> 'Next.js'</span>,
-                        <span className="text-emerald-400"> 'C#'</span>,
-                        <span className="text-emerald-400"> '.NET MAUI'</span>,
-                        <span className="text-emerald-400"> 'Python'</span>,
-                        <span className="text-emerald-400"> 'MySQL'</span>,
-                        <span className="text-emerald-400"> 'Tailwind CSS'</span>
+                        <span className="text-cyan-400">'React'</span>,
+                        <span className="text-cyan-400"> 'TypeScript'</span>,
+                        <span className="text-cyan-400"> 'Next.js'</span>,
+                        <span className="text-cyan-400"> 'C#'</span>,
+                        <span className="text-cyan-400"> '.NET MAUI'</span>,
+                        <span className="text-cyan-400"> 'Python'</span>,
+                        <span className="text-cyan-400"> 'MySQL'</span>,
+                        <span className="text-cyan-400"> 'Tailwind CSS'</span>
                         <span className="text-white">]</span>
                       </div>
                     </div>
@@ -476,7 +494,7 @@ const Portfolio = () => {
       case 'about':
         return (
           <div className="bg-slate-950 dark">
-            <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-400" size={32} /></div>}>
+            <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-cyan-400" size={32} /></div>}>
               <AboutSection stats={stats} />
             </Suspense>
           </div>
@@ -487,12 +505,12 @@ const Portfolio = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[calc(100vh-140px)] flex flex-col justify-center bg-slate-950 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_-40px_rgba(15,23,42,1)] border border-white/5">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-6 text-slate-200">What I Know</h2>
-              <div className="inline-flex bg-slate-900/60 p-1 rounded-full border border-white/10 shadow-[0_0_30px_-15px_rgba(59,130,246,0.8)]">
+              <div className="inline-flex bg-slate-900/60 p-1 rounded-full border border-white/10 shadow-[0_0_30px_-15px_rgba(6,182,212,0.8)]">
                 <button 
                   onClick={() => setSkillsView('visual')}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                     skillsView === 'visual' 
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30' 
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -502,7 +520,7 @@ const Portfolio = () => {
                   onClick={() => setSkillsView('detailed')}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                     skillsView === 'detailed' 
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30' 
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -512,52 +530,52 @@ const Portfolio = () => {
             </div>
 
             {skillsView === 'visual' ? (
-              <div className="rounded-3xl border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl shadow-blue-500/10 p-6">
-                <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-400" size={32} /></div>}>
+              <div className="rounded-3xl border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl shadow-cyan-500/10 p-6">
+                <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-cyan-400" size={32} /></div>}>
                   <RotatingSkills skills={skills} />
                 </Suspense>
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 animate-in fade-in slide-in-from-bottom-4">
-                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-blue-400/30 transition-colors shadow-xl shadow-black/5">
-                  <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 text-blue-400">
+                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-cyan-400/30 transition-colors shadow-xl shadow-black/5">
+                  <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
                     <Globe size={24} />
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-slate-200">Frontend</h3>
                   <ul className="space-y-2 text-slate-400">
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full" /> React / Next.js</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full" /> TypeScript</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full" /> Tailwind CSS</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full" /> HTML/CSS</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full" /> JavaScript</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> React / Next.js</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> TypeScript</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> Tailwind CSS</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> HTML/CSS</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> JavaScript</li>
                   </ul>
                 </div>
 
-                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-emerald-400/30 transition-colors shadow-xl shadow-black/5">
-                  <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-4 text-emerald-400">
+                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-cyan-400/30 transition-colors shadow-xl shadow-black/5">
+                  <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
                     <Terminal size={24} />
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-slate-200">Backend & Languages</h3>
                   <ul className="space-y-2 text-slate-400">
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> Python</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> C++</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> C#</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> Node.js</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> MySQL</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> Data Structures</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> Python</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> C++</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> C#</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> Node.js</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> MySQL</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" /> Data Structures</li>
                   </ul>
                 </div>
 
-                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-purple-400/30 transition-colors shadow-xl shadow-black/5">
-                  <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-4 text-purple-400">
+                <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-gray-400/30 transition-colors shadow-xl shadow-black/5">
+                  <div className="w-12 h-12 bg-gray-500/10 rounded-xl flex items-center justify-center mb-4 text-gray-400">
                     <Cpu size={24} />
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-slate-200">Tools & Frameworks</h3>
                   <ul className="space-y-2 text-slate-400">
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-purple-400 rounded-full" /> Git / GitHub</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-purple-400 rounded-full" /> .NET MAUI</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-purple-400 rounded-full" /> Qt Framework</li>
-                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-purple-400 rounded-full" /> Unity Engine</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-gray-400 rounded-full" /> Git / GitHub</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-gray-400 rounded-full" /> .NET MAUI</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-gray-400 rounded-full" /> Qt Framework</li>
+                    <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-gray-400 rounded-full" /> Unity Engine</li>
                   </ul>
                 </div>
               </div>
@@ -568,7 +586,7 @@ const Portfolio = () => {
       case 'projects':
         return (
           <div className="bg-slate-950 dark">
-            <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-400" size={32} /></div>}>
+            <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-cyan-400" size={32} /></div>}>
               <ProjectsSection projects={projects} />
             </Suspense>
           </div>
@@ -579,7 +597,7 @@ const Portfolio = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10 min-h-[70vh] flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
              <div className="text-center mb-6 sm:mb-8">
                <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex items-center justify-center gap-2 sm:gap-3">
-                 <Bot size={28} className="sm:w-8 sm:h-8 text-blue-400" />
+                 <Bot size={28} className="sm:w-8 sm:h-8 text-cyan-400" />
                  <span>Ask My Digital Twin</span>
                </h2>
                <p className="text-sm sm:text-base text-slate-400 px-4">
@@ -593,7 +611,7 @@ const Portfolio = () => {
                     <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] sm:max-w-[80%] p-3 sm:p-4 rounded-2xl text-sm sm:text-base ${
                         msg.role === 'user' 
-                          ? 'bg-blue-600 text-white rounded-br-sm' 
+                          ? 'bg-cyan-600 text-white rounded-br-sm' 
                           : 'bg-slate-800 text-slate-200 rounded-bl-sm border border-white/5'
                       }`}>
                         {msg.text}
@@ -603,7 +621,7 @@ const Portfolio = () => {
                   {isChatLoading && (
                      <div className="flex justify-start">
                        <div className="bg-slate-800 p-3 sm:p-4 rounded-2xl rounded-bl-sm border border-white/5 flex items-center gap-2">
-                         <Loader2 size={16} className="animate-spin text-blue-400" />
+                         <Loader2 size={16} className="animate-spin text-cyan-400" />
                          <span className="text-slate-400 text-sm">Thinking...</span>
                        </div>
                      </div>
@@ -617,12 +635,12 @@ const Portfolio = () => {
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Ask me anything..."
-                    className="flex-grow bg-slate-900 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-slate-200 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all placeholder:text-slate-600"
+                    className="flex-grow bg-slate-900 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-slate-200 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all placeholder:text-slate-600"
                   />
                   <button 
                     type="submit"
                     disabled={isChatLoading || !chatInput.trim()}
-                    className="p-2.5 sm:p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg sm:rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                    className="p-2.5 sm:p-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg sm:rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
                   >
                     <Send size={20} />
                   </button>
@@ -634,7 +652,7 @@ const Portfolio = () => {
       case 'contact':
         return (
           <div className="max-w-3xl mx-auto px-6 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col items-center justify-center min-h-[60vh]">
-            <p className="text-blue-400 font-mono mb-4">What's Next?</p>
+            <p className="text-cyan-400 font-mono mb-4">What's Next?</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Get In Touch</h2>
             <p className="text-slate-400 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
               I'm currently looking for new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!
@@ -643,7 +661,7 @@ const Portfolio = () => {
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <a 
                 href="mailto:bashyal.dolraj30@gmail.com"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-blue-400 text-blue-400 rounded-lg hover:bg-blue-400/10 transition-all font-medium"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 transition-all font-medium"
               >
                 <Mail size={20} />
                 Send Email
@@ -652,7 +670,7 @@ const Portfolio = () => {
                 onClick={() => handleTabChange('ask-ai')}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-slate-800 border border-white/10 text-white rounded-lg hover:bg-slate-700 transition-all font-medium"
               >
-                <Bot size={20} className="text-purple-400" />
+                <Bot size={20} className="text-gray-400" />
                 Chat with AI
               </button>
             </div>
@@ -665,7 +683,7 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500/30 flex flex-col relative overflow-hidden">
       <Suspense fallback={null}>
         <AnimatedBackground />
       </Suspense>
@@ -674,7 +692,7 @@ const Portfolio = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <button 
             onClick={() => handleTabChange('home')}
-            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+            className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
           >
             DB
           </button>
@@ -691,7 +709,7 @@ const Portfolio = () => {
           <a 
             href="/assets/DolRaj_Bashyal_Resume.pdf"
             download
-            className="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 relative overflow-hidden group"
+            className="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-cyan-600 rounded-full hover:bg-cyan-500 transition-all shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 relative overflow-hidden group"
           >
             <span className="relative z-10 flex items-center gap-2">
               <Download size={16} className="opacity-90" />

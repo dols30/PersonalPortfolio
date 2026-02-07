@@ -29,7 +29,7 @@ const SkillLevelStars = ({ level, isVisible }: { level: number, isVisible: boole
           strokeLinejoin="round"
           className={`
             ${i < filledStars 
-              ? "text-blue-500 dark:text-blue-400" 
+              ? "text-cyan-500 dark:text-cyan-400" 
               : "text-slate-300 dark:text-slate-600"
             }
             ${isVisible ? "skill-star skill-star-animate skill-star-" + (i+1) : ""}
@@ -119,7 +119,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
               onClick={() => setShowRotating(true)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 showRotating 
-                  ? 'bg-blue-600 text-white' 
+                  ? 'bg-cyan-600 text-white' 
                   : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
               }`}
             >
@@ -129,7 +129,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
               onClick={() => setShowRotating(false)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 !showRotating 
-                  ? 'bg-blue-600 text-white' 
+                  ? 'bg-cyan-600 text-white' 
                   : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
               }`}
             >
@@ -159,14 +159,14 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                     className={`
                       skill-item animate-on-scroll animate-stagger-${index + 1} 
                       p-3 rounded-lg border border-transparent
-                      hover:bg-blue-50/50 dark:hover:bg-blue-900/10 
-                      hover:border-blue-100 dark:hover:border-blue-800/40
+                      hover:bg-cyan-50/50 dark:hover:bg-cyan-900/10 
+                      hover:border-cyan-100 dark:hover:border-cyan-800/40
                       transition-all duration-300 ease-in-out
                       transform hover:-translate-y-1 hover:shadow-md
                     `}
                   >
                     <div className="flex justify-between mb-2">
-                      <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      <h4 className="font-medium flex items-center gap-2 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                         <SkillIcon iconName={skill.iconName} /> {skill.name}
                       </h4>
                       <span className="text-sm text-slate-500 dark:text-slate-400 min-w-[90px] text-right">
@@ -184,12 +184,12 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                       {/* Skill Experience Badges */}
                       <div className="flex items-center gap-2">
                         {skill.level >= 75 && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 skill-badge">
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400 skill-badge">
                             Expert
                           </span>
                         )}
                         {skill.level >= 50 && skill.level < 75 && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 skill-badge">
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 skill-badge">
                             Proficient
                           </span>
                         )}
@@ -218,14 +218,14 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                     className={`
                       skill-item animate-on-scroll animate-stagger-${index + 1} 
                       p-3 rounded-lg border border-transparent
-                      hover:bg-blue-50/50 dark:hover:bg-blue-900/10 
-                      hover:border-blue-100 dark:hover:border-blue-800/40
+                      hover:bg-cyan-50/50 dark:hover:bg-cyan-900/10 
+                      hover:border-cyan-100 dark:hover:border-cyan-800/40
                       transition-all duration-300 ease-in-out
                       transform hover:-translate-y-1 hover:shadow-md
                     `}
                   >
                     <div className="flex justify-between mb-2">
-                      <h4 className="font-medium flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      <h4 className="font-medium flex items-center gap-2 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                         <SkillIcon iconName={skill.iconName} /> {skill.name}
                       </h4>
                       <span className="text-sm text-slate-500 dark:text-slate-400 min-w-[90px] text-right">
@@ -243,12 +243,12 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                       {/* Skill Experience Badges */}
                       <div className="flex items-center gap-2">
                         {skill.level >= 75 && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 skill-badge">
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400 skill-badge">
                             Expert
                           </span>
                         )}
                         {skill.level >= 50 && skill.level < 75 && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 skill-badge">
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 skill-badge">
                             Proficient
                           </span>
                         )}

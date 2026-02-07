@@ -323,12 +323,12 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
       
       // Tentacle style - improved colors and width for both light and dark mode
       if (isSelected) {
-        ctx.strokeStyle = isDarkMode ? 'rgba(96, 165, 250, 0.95)' : 'rgba(59, 130, 246, 0.9)';
+        ctx.strokeStyle = isDarkMode ? 'rgba(34, 211, 238, 0.95)' : 'rgba(6, 182, 212, 0.9)';
         ctx.lineWidth = 5;
       } else {
         ctx.strokeStyle = isDarkMode 
-          ? `rgba(147, 197, 253, ${opacity * 0.8})` 
-          : `rgba(59, 130, 246, ${opacity * 0.7})`;
+          ? `rgba(103, 232, 249, ${opacity * 0.8})` 
+          : `rgba(6, 182, 212, ${opacity * 0.7})`;
         ctx.lineWidth = 2 + opacity * 2;
       }
       
@@ -337,7 +337,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
       
       // Add glow for selected tentacle - softer glow to prevent glitching
       if (isSelected) {
-        ctx.shadowColor = isDarkMode ? 'rgba(147, 197, 253, 0.6)' : 'rgba(59, 130, 246, 0.5)';
+        ctx.shadowColor = isDarkMode ? 'rgba(103, 232, 249, 0.6)' : 'rgba(6, 182, 212, 0.5)';
         ctx.shadowBlur = 8;
         ctx.stroke();
         ctx.shadowBlur = 0;
@@ -352,7 +352,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
           
           ctx.beginPath();
           ctx.arc(px, py, 3, 0, Math.PI * 2);
-          ctx.fillStyle = isDarkMode ? 'rgba(191, 219, 254, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+          ctx.fillStyle = isDarkMode ? 'rgba(165, 243, 252, 0.95)' : 'rgba(255, 255, 255, 0.95)';
           ctx.fill();
         }
       }
@@ -366,8 +366,8 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
           ctx.beginPath();
           ctx.arc(dotX, dotY, isSelected ? 3 : 2, 0, Math.PI * 2);
           ctx.fillStyle = isSelected 
-            ? (isDarkMode ? 'rgba(219, 234, 254, 0.95)' : 'rgba(255, 255, 255, 0.95)') 
-            : (isDarkMode ? `rgba(147, 197, 253, ${opacity * 0.9})` : `rgba(96, 165, 250, ${opacity * 0.8})`);
+            ? (isDarkMode ? 'rgba(165, 243, 252, 0.95)' : 'rgba(255, 255, 255, 0.95)') 
+            : (isDarkMode ? `rgba(103, 232, 249, ${opacity * 0.9})` : `rgba(34, 211, 238, ${opacity * 0.8})`);
           ctx.fill();
         });
       }
@@ -389,12 +389,12 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
       />
       
       <div 
-        className="absolute flex items-center justify-center rounded-full bg-blue-600/40 border border-blue-400/40 backdrop-blur-md w-16 h-16 sm:w-20 sm:h-20 z-20 hub-glow"
+        className="absolute flex items-center justify-center rounded-full bg-cyan-600/40 border border-cyan-400/40 backdrop-blur-md w-16 h-16 sm:w-20 sm:h-20 z-20 hub-glow"
         style={{
           '--x-rotation': `${Math.sin(hubRotation/30) * 15}deg`,
         } as React.CSSProperties}
       >
-        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-700 flex items-center justify-center overflow-hidden">
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-cyan-700 flex items-center justify-center overflow-hidden">
           <span className="text-xs text-white font-bold tracking-wide text-center">My Toolkit</span>
         </div>
       </div>
@@ -497,13 +497,13 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                 items-center 
                 justify-center
                 ${isSelected 
-                  ? 'bg-blue-500/10 border border-blue-500/30 p-1 backdrop-blur-sm' 
+                  ? 'bg-cyan-500/10 border border-cyan-500/30 p-1 backdrop-blur-sm' 
                   : 'p-0.5'
                 }
                 transition-colors duration-100
               `}
               style={{
-                boxShadow: isSelected ? '0 0 10px rgba(59, 130, 246, 0.2)' : 'none',
+                boxShadow: isSelected ? '0 0 10px rgba(6, 182, 212, 0.2)' : 'none',
               }}
             >
               <img 
@@ -521,7 +521,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                 `}
                 style={{
                   filter: isSelected 
-                    ? 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))' 
+                    ? 'drop-shadow(0 0 2px rgba(6, 182, 212, 0.3))' 
                     : 'none',
                 }}
               />
@@ -534,7 +534,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
                 px-2 
                 py-1 
                 ${isSelected 
-                  ? 'bg-blue-500/80 dark:bg-blue-600/90 text-white' 
+                  ? 'bg-cyan-500/80 dark:bg-cyan-600/90 text-white' 
                   : 'bg-white/90 dark:bg-slate-800/90 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700'
                 }
                 backdrop-blur-sm 
@@ -549,7 +549,7 @@ export const RotatingSkills = ({ skills }: RotatingSkillsProps) => {
               `}
             >
               {isSelected ? (
-                <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-500 dark:bg-blue-600 rotate-45"></span>
+                <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-500 dark:bg-cyan-600 rotate-45"></span>
               ) : null}
               {skill.name}
             </div>

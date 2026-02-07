@@ -43,7 +43,7 @@ const WaveAnimation = () => {
       if (isDarkMode) {
         ctx.strokeStyle = 'rgba(75, 85, 99, 0.15)';
       } else {
-        ctx.strokeStyle = 'rgba(59, 130, 246, 0.12)';
+        ctx.strokeStyle = 'rgba(6, 182, 212, 0.12)';
       }
       
       ctx.lineWidth = 2;
@@ -67,7 +67,7 @@ const WaveAnimation = () => {
       if (isDarkMode) {
         ctx.strokeStyle = 'rgba(75, 85, 99, 0.10)';
       } else {
-        ctx.strokeStyle = 'rgba(59, 130, 246, 0.08)';
+        ctx.strokeStyle = 'rgba(6, 182, 212, 0.08)';
       }
       
       ctx.lineWidth = 3;

@@ -136,7 +136,7 @@ const AnimatedBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 380) {
             const opacity = (1 - distance / 380) * 0.18;
-            ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+            ctx.strokeStyle = `rgba(6, 182, 212, ${opacity})`;
             ctx.beginPath();
             ctx.moveTo(orbs[i].x, orbs[i].y);
             ctx.lineTo(orbs[j].x, orbs[j].y);

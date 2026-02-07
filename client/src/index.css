@@ -126,7 +126,7 @@
   }
 
   .nav-link {
-    @apply relative font-medium hover:text-blue-600;
+    @apply relative font-medium hover:text-cyan-500;
   }
   
   .dark .nav-link:hover {
@@ -135,7 +135,7 @@
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-blue-600 transition-all duration-300 ease-in-out;
+    @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 ease-in-out;
   }
 
   .dark .nav-link::after {
@@ -154,7 +154,7 @@
 
   .project-card:hover {
     @apply transform -translate-y-1 shadow-xl;
-    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.1);
   }
   
   .skill-item {
@@ -170,19 +170,19 @@
 /* Rotating Skills animations */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 10px 2px rgba(6, 182, 212, 0.3);
   }
   50% {
-    box-shadow: 0 0 15px 5px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 15px 5px rgba(6, 182, 212, 0.5);
   }
 }
 
 @keyframes pulse-glow-dark {
   0%, 100% {
-    box-shadow: 0 0 10px 2px rgba(96, 165, 250, 0.3);
+    box-shadow: 0 0 10px 2px rgba(34, 211, 238, 0.3);
   }
   50% {
-    box-shadow: 0 0 15px 5px rgba(96, 165, 250, 0.5);
+    box-shadow: 0 0 15px 5px rgba(34, 211, 238, 0.5);
   }
 }
 
@@ -260,14 +260,14 @@
 .center-hub {
   position: relative;
   border-radius: 50%;
-  box-shadow: 0 0 15px 2px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 15px 2px rgba(6, 182, 212, 0.5);
   transition: all 0.2s ease;
   transform-style: preserve-3d;
-  background-image: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6); /* Gradient for 3D effect */
+  background-image: radial-gradient(circle at 30% 30%, #22d3ee, #06b6d4); /* Gradient for 3D effect */
   box-shadow: 
     inset -5px -5px 10px rgba(0, 0, 0, 0.4),  /* Inner shadow for depth */
     inset 5px 5px 10px rgba(255, 255, 255, 0.3),
-    0 0 15px 2px rgba(59, 130, 246, 0.5);    /* Outer glow */
+    0 0 15px 2px rgba(6, 182, 212, 0.5);    /* Outer glow */
 }
 
 /* Add highlight for 3D effect */
@@ -290,7 +290,7 @@
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #3b82f6, #60a5fa);
+    background: linear-gradient(45deg, #06b6d4, #22d3ee);
   opacity: 0.4;
   filter: blur(8px);
 }
@@ -299,12 +299,12 @@
   box-shadow: 
     inset -5px -5px 10px rgba(0, 0, 0, 0.5),  /* Stronger inner shadow for dark mode */
     inset 5px 5px 10px rgba(255, 255, 255, 0.2),
-    0 0 15px 4px rgba(96, 165, 250, 0.5);
-  background-image: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6);
+    0 0 15px 4px rgba(34, 211, 238, 0.5);
+  background-image: radial-gradient(circle at 30% 30%, #22d3ee, #06b6d4);
 }
 
 .dark .center-hub::before {
-  background: linear-gradient(45deg, #60a5fa, #93c5fd);
+  background: linear-gradient(45deg, #22d3ee, #67e8f9);
   opacity: 0.5;
 }
 
@@ -360,11 +360,11 @@
 
 .skill-node:hover .skill-node-inner {
   transform: scale(1.05) !important;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
 }
 
 .dark .skill-node:hover .skill-node-inner {
-  box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
 }
 
 /* Skill node styling improvements */
@@ -436,10 +436,10 @@
 /* Simpler skill node glow animation */
 @keyframes skill-glow {
   0%, 100% {
-    box-shadow: 0 0 5px 1px rgba(59, 130, 246, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(6, 182, 212, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   50% {
-    box-shadow: 0 0 10px 3px rgba(59, 130, 246, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 3px rgba(6, 182, 212, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -450,10 +450,10 @@
 
 @keyframes skill-glow-dark {
   0%, 100% {
-    box-shadow: 0 0 5px 1px rgba(96, 165, 250, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(34, 211, 238, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   50% {
-    box-shadow: 0 0 10px 3px rgba(96, 165, 250, 0.6), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 3px rgba(34, 211, 238, 0.6), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 }
 
