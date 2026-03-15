@@ -22,6 +22,7 @@ const AboutSection = lazy(() => import('@/components/AboutSection'));
 const ProjectsSection = lazy(() => import('@/components/ProjectsSection'));
 const AnimatedBackground = lazy(() => import('@/components/AnimatedBackground'));
 import { Skill, Project, Stat } from '@/types';
+import { PortfolioHeroImage } from '@/components/PortfolioHeroImage';
 
 const Portfolio = () => {
   const currentYear = new Date().getFullYear();
@@ -386,7 +387,7 @@ const Portfolio = () => {
             <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-[100px]" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px]" />
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 w-full">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:justify-between relative z-10 w-full">
               <div className="space-y-4 sm:space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs sm:text-sm text-cyan-300">
                   <span className="relative flex h-2 w-2">
@@ -441,51 +442,72 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              <div className="hidden md:block relative mt-8 md:mt-0">
-                <div className="relative z-10 bg-gradient-to-tr from-slate-800 to-slate-900 p-6 md:p-8 rounded-2xl border border-white/10 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                  <div className="flex gap-2 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-red-500" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
-                  </div>
-                  <div className="space-y-4 font-mono text-sm">
-                    <div className="flex gap-2">
-                      <span className="text-gray-400">const</span>
-                      <span className="text-cyan-400">developer</span>
-                      <span className="text-white">=</span>
-                      <span className="text-white">{`{`}</span>
+              <div className="hidden lg:flex flex-1 items-center justify-end relative mt-8 lg:mt-0 xl:mr-10">
+                <div className="w-full max-w-[850px] relative z-10">
+                  <div className="relative z-10 flex items-stretch bg-gradient-to-tr from-slate-800 to-slate-900 p-6 md:p-8 rounded-2xl border border-white/10 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 min-h-[450px]">
+                    
+                    {/* Left Side: Code Snippet */}
+                    <div className="w-[240px] flex-shrink-0 pr-4">
+                      <div className="flex gap-2 mb-4">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                      </div>
+                      <div className="space-y-3 font-mono text-xs sm:text-sm border-l-2 border-cyan-500/30 pl-4 py-2">
+                        <div className="flex gap-2 text-sm">
+                          <span className="text-gray-400">const</span>
+                          <span className="text-cyan-400">developer</span>
+                          <span className="text-white">=</span>
+                          <span className="text-white">{`{`}</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div>
+                            <span className="text-slate-400">name:</span>
+                            <span className="text-cyan-400"> 'Dol Raj Bashyal'</span>,
+                          </div>
+                          <div>
+                            <span className="text-slate-400">role:</span>
+                            <span className="text-cyan-400"> 'CS Student & Dev'</span>,
+                          </div>
+                          <div>
+                            <span className="text-slate-400">location:</span>
+                            <span className="text-cyan-400"> 'Hattiesburg, MS USA'</span>,
+                          </div>
+                          <div>
+                            <span className="text-slate-400">focus:</span>
+                            <span className="text-cyan-400"> 'Elegant Solutions'</span>,
+                          </div>
+                          <div>
+                            <span className="text-slate-400">skills:</span>
+                            <span className="text-white"> [</span>
+                            <div className="pl-4 space-y-1 mt-1">
+                              <div className="text-cyan-400">'React', 'TypeScript',</div>
+                              <div className="text-cyan-400">'Next.js', 'C#',</div>
+                              <div className="text-cyan-400">'.NET MAUI', 'Python',</div>
+                              <div className="text-cyan-400">'MySQL', 'Tailwind'</div>
+                            </div>
+                            <span className="text-white">]</span>
+                          </div>
+                        </div>
+                        <div className="text-white text-sm">{'}'}</div>
+                      </div>
                     </div>
-                    <div className="pl-4 space-y-2">
-                      <div>
-                        <span className="text-slate-400">name:</span>
-                        <span className="text-cyan-400"> 'Dol Raj Bashyal'</span>,
-                      </div>
-                      <div>
-                        <span className="text-slate-400">role:</span>
-                        <span className="text-cyan-400"> 'CS Student & Dev'</span>,
-                      </div>
-                      <div>
-                        <span className="text-slate-400">focus:</span>
-                        <span className="text-cyan-400"> 'Elegant Solutions'</span>,
-                      </div>
-                      <div>
-                        <span className="text-slate-400">skills:</span>
-                        <span className="text-white"> [</span>
-                        <span className="text-cyan-400">'React'</span>,
-                        <span className="text-cyan-400"> 'TypeScript'</span>,
-                        <span className="text-cyan-400"> 'Next.js'</span>,
-                        <span className="text-cyan-400"> 'C#'</span>,
-                        <span className="text-cyan-400"> '.NET MAUI'</span>,
-                        <span className="text-cyan-400"> 'Python'</span>,
-                        <span className="text-cyan-400"> 'MySQL'</span>,
-                        <span className="text-cyan-400"> 'Tailwind CSS'</span>
-                        <span className="text-white">]</span>
+                    
+                    {/* Right Side: The Hero Image inside the box */}
+                    <div className="flex-1 flex items-center justify-center pl-4 xl:pl-6 border-l border-white/5 relative">
+                      <div className="w-full max-w-[550px]">
+                        <PortfolioHeroImage onNavigate={handleTabChange} />
                       </div>
                     </div>
-                    <div className="text-white">{'}'}</div>
+                    
                   </div>
+                  <div className="absolute top-4 -right-2 w-full h-full border-2 border-white/5 rounded-2xl -z-10 rotate-3" />
                 </div>
-                <div className="absolute top-4 -right-4 w-full h-full border-2 border-white/5 rounded-2xl -z-10 rotate-3" />
+              </div>
+
+              {/* Tablet/Smaller Desktop view showing only one or stacked */}
+              <div className="hidden md:block lg:hidden relative mt-8 md:mt-0 w-full max-w-[500px] mx-auto">
+                <PortfolioHeroImage onNavigate={handleTabChange} />
               </div>
             </div>
           </div>
