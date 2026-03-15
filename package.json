@@ -101,6 +101,7 @@
     "concurrently": "^9.1.2",
     "drizzle-kit": "^0.30.4",
     "esbuild": "^0.25.0",
+    "jimp": "^0.22.10",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.17",
     "terser": "^5.44.1",

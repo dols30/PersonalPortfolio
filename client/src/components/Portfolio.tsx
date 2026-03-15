@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { 
   Github, 
@@ -14,7 +15,8 @@ import {
   Download,
   Globe,
   Terminal,
-  Cpu
+  Cpu,
+  LucideIcon
 } from 'lucide-react';
 
 const RotatingSkills = lazy(() => import('@/components/RotatingSkills'));
@@ -353,21 +355,30 @@ const Portfolio = () => {
     }
   }, []);
 
-  const NavLink = React.memo(({ id, label, icon: Icon }: { id: string; label: string; icon?: React.ComponentType<{ size?: number }> }) => (
+  const NavLink = React.memo(({ id, label, icon: Icon }: { id: string; label: string; icon?: LucideIcon }) => (
     <button
       onClick={() => handleTabChange(id)}
-      className={`text-sm font-medium transition-all px-4 py-2 rounded-full flex items-center gap-2 ${
+      className={`relative text-sm font-medium transition-colors px-4 py-2 rounded-full flex items-center gap-2 ${
         activeTab === id 
-          ? 'bg-white/10 text-cyan-400' 
+          ? 'text-cyan-400' 
           : 'text-gray-400 hover:text-white hover:bg-white/5'
       }`}
     >
-      {Icon && <Icon size={16} />}
-      {label}
+      {activeTab === id && (
+         <motion.div
+           layoutId="active-nav-pill"
+           className="absolute inset-0 bg-white/10 rounded-full"
+           transition={{ type: "spring", stiffness: 380, damping: 30 }}
+         />
+      )}
+      <span className="relative z-10 flex items-center gap-2">
+        {Icon && <Icon size={16} />}
+        {label}
+      </span>
     </button>
   ));
 
-  const SocialLink = React.memo(({ href, icon: Icon }: { href: string; icon: React.ComponentType<{ size?: number }> }) => (
+  const SocialLink = React.memo(({ href, icon: Icon }: { href: string; icon: LucideIcon }) => (
     <a
       href={href}
       target="_blank"
@@ -383,7 +394,7 @@ const Portfolio = () => {
     switch (activeTab) {
       case 'home':
         return (
-          <div className="min-h-[80vh] flex items-center justify-center relative overflow-hidden animate-in fade-in zoom-in duration-500 py-16">
+          <div className="min-h-[80vh] flex items-center justify-center relative overflow-hidden py-16">
             <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-[100px]" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px]" />
 
@@ -408,9 +419,6 @@ const Portfolio = () => {
                   Computer Science Student & Developer
                 </h2>
 
-                <p className="text-base sm:text-lg text-slate-400 max-w-lg leading-relaxed">
-                  I specialize in software development with a focus on creating elegant, efficient, and user-friendly applications that address real-world challenges.
-                </p>
 
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-4">
                   <a 
@@ -524,7 +532,7 @@ const Portfolio = () => {
 
       case 'skills':
         return (
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 animate-in fade-in slide-in-from-bottom-4 duration-500 min-h-[calc(100vh-140px)] flex flex-col justify-center bg-slate-950 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_-40px_rgba(15,23,42,1)] border border-white/5">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 min-h-[calc(100vh-140px)] flex flex-col justify-center bg-slate-950 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_-40px_rgba(15,23,42,1)] border border-white/5">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-6 text-slate-200">What I Know</h2>
               <div className="inline-flex bg-slate-900/60 p-1 rounded-full border border-white/10 shadow-[0_0_30px_-15px_rgba(6,182,212,0.8)]">
@@ -558,7 +566,7 @@ const Portfolio = () => {
                 </Suspense>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 animate-in fade-in slide-in-from-bottom-4">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <div className="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-cyan-400/30 transition-colors shadow-xl shadow-black/5">
                   <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
                     <Globe size={24} />
@@ -616,7 +624,7 @@ const Portfolio = () => {
 
       case 'ask-ai':
         return (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10 min-h-[70vh] flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10 min-h-[70vh] flex flex-col">
              <div className="text-center mb-6 sm:mb-8">
                <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex items-center justify-center gap-2 sm:gap-3">
                  <Bot size={28} className="sm:w-8 sm:h-8 text-cyan-400" />
@@ -673,7 +681,7 @@ const Portfolio = () => {
 
       case 'contact':
         return (
-          <div className="max-w-3xl mx-auto px-6 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col items-center justify-center min-h-[60vh]">
+          <div className="max-w-3xl mx-auto px-6 py-20 text-center flex flex-col items-center justify-center min-h-[60vh]">
             <p className="text-cyan-400 font-mono mb-4">What's Next?</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Get In Touch</h2>
             <p className="text-slate-400 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
@@ -761,7 +769,18 @@ const Portfolio = () => {
       </nav>
 
       <main className="flex-grow pt-14 sm:pt-16">
-        {renderContent()}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="w-full"
+          >
+            {renderContent()}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       <footer className="py-8 text-center text-slate-500 text-sm border-t border-white/5 mt-auto space-y-4">
